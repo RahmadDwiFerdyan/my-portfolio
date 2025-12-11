@@ -1,0 +1,147 @@
+@import "./theme.css";
+@import "tailwindcss";
+
+/* ---------------------- */
+/*  BASE LAYER            */
+/* ---------------------- */
+@layer base {
+  body {
+    font-family: var(--font-manrope);
+    background: white;
+  }
+}
+
+/* ---------------------- */
+/*  GRADIENT BLOBS        */
+/* ---------------------- */
+.blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: blur(160px);
+  opacity: 0.35;
+  z-index: -1;
+}
+
+.blob-primary {
+  background: var(--color-primary);
+}
+
+.blob-secondary {
+  background: var(--color-secondary);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.tech-card:hover {
+  box-shadow: 0 8px 25px rgba(123, 97, 255, 0.15),
+              0 4px 15px rgba(0, 224, 255, 0.10);
+}
+
+/* soft pulse animations for blobs */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulseSlow 9s ease-in-out infinite;
+}
+
+@keyframes fadeStagger {
+  from { opacity: 0; transform: translateY(20px); }
+  to {   opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.6s ease-out;
+}
+
+.reveal.show {
+  animation: fadeStagger 0.8s forwards;
+}
+
+.tech-tilt {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-tilt:hover {
+  transform: translateY(-4px) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 12px 32px rgba(123, 97, 255, 0.15);
+}
+
+.category-title {
+  position: relative;
+  display: inline-block;
+}
+
+.category-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transition: width 0.4s ease-out;
+}
+
+.category-title.show-underline::after {
+  width: 100%;
+}
+
+@keyframes fadeProject {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.project-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.project-reveal.show {
+  animation: fadeProject .9s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+
+.glass:hover {
+  box-shadow: 
+    0 12px 32px rgba(123, 97, 255, 0.18),
+    0 6px 18px rgba(0, 224, 255, 0.15);
+}
