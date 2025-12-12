@@ -28,12 +28,13 @@ export default function Hero() {
         </div>
 
         {/* Text content */}
-        <div className="max-w-xl animate-fadeUp text-center md:text-left">
-          <p className="text-md text-gray-500 mb-4">Rahmad Dwi Ferdyan</p>
-          <h1 className="text-5xl md:text-6xl font-sora font-bold leading-tight">
+        <div className="max-w-2xl animate-fadeUp text-center md:text-left">
+          <p className="text-md text-gray-500 mb-4">Website & Mobile App Developer</p>
+          <h1 className="text-5xl md:text-6xl text-gray-800 font-sora font-bold leading-tight">
             Hello there, I’m{" "}
-            <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text">
-              Ferdy
+            <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text
+                              hover:from-yellow-400 hover:to-orange-300 transition-colors duration-400">
+              Rahmad Dwi Ferdyan
             </span>
 
           </h1>

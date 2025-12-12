@@ -34,14 +34,14 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
               alt={project.title}
               className="
                 w-full h-60 object-cover rounded-xl
-                transition-transform duration-700
-                group-hover:scale-110 group-hover:-rotate-1
+                transition-transform duration-500
+                group-hover:scale-105 group-hover:rotate-0
               "
             />
           </div>
 
           {/* Title */}
-          <h3 className="mt-5 text-2xl font-sora font-semibold text-gray-900 group-hover:text-primary transition">
+          <h3 className="mt-5 text-2xl font-sora font-semibold text-gray-800 group-hover:text-primary transition">
             {project.title}
           </h3>
 
@@ -57,10 +57,10 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
                 key={i}
                 className="
                   text-md px-3 py-1 text-gray-600 rounded-full bg-white/60 backdrop-blur-sm
-                  border border-black/5 
+                  border border-black/10 
                   font-medium font-manrope 
                   transition-all duration-500
-                  group-hover:-translate-y-0.5
+                  group-hover:translate-y-3
                 "
               >
                 {t}

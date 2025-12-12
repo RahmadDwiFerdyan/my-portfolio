@@ -70,7 +70,7 @@ export default function TechStack() {
 
             <div className="mt-16 text-center">
                 <a
-                    href="https://drive.google.com/file/d/1h4Oa4qbOpxd_f1aWSN96ZDawEuUh5yOR/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1XGao-9Nc1bzF4DUo5Y6-d2mExPREnYVg/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
@@ -91,7 +91,7 @@ export default function TechStack() {
                         className="w-5 h-5 opacity-80 transition-transform duration-300 group-hover:-translate-y-0.5"
                     />
 
-                    Download My CV
+                    Download my CV
                 </a>
             </div>
 

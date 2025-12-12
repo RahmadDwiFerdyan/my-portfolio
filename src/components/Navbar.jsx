@@ -34,7 +34,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU OVERLAY */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-md z-50 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/20 backdrop-blur-md z-50 transition-opacity duration-300 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setOpen(false)}
