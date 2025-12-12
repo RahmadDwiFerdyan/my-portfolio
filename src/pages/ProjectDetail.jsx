@@ -6,7 +6,7 @@ export default function ProjectDetail() {
     const project = projects.find((p) => p.id == id);
 
     return (
-        <section className="pt-32 pb-20 max-w-7xl mx-auto px-6 font-manrope">
+        <section className="pt-16 pb-20 max-w-7xl mx-auto px-6 font-manrope">
 
             {/* Back Button */}
             <Link
