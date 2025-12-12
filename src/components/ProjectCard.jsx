@@ -8,10 +8,10 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
       <div
         ref={ref}
         className={`
-          group relative rounded-2xl border border-white/10 backdrop-blur-xl 
-          bg-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.05)]
+          group relative rounded-2xl border border-black/10
+          bg-white/30 shadow-[0_6px_20px_rgba(0,0,0,0.03)]
           overflow-hidden transition-all duration-500
-          hover:shadow-[0_20px_50px_rgba(123,97,255,0.25)]
+          hover:shadow-[0_10px_50px_rgba(123,97,255,0.25)]
           hover:-translate-y-3 hover:scale-[1.015]
           project-reveal 
           min-h-[560px]

@@ -6,12 +6,12 @@ export default function ProjectDetail() {
     const project = projects.find((p) => p.id == id);
 
     return (
-        <section className="pt-32 pb-20 max-w-5xl mx-auto px-6 font-manrope">
+        <section className="pt-32 pb-20 max-w-7xl mx-auto px-6 font-manrope">
 
             {/* Back Button */}
             <Link
                 to="/"
-                className="inline-flex items-center gap-2 font-medium mb-6 hover:underline"
+                className="inline-flex items-center gap-2 font-medium text-lg mb-6 hover:underline"
             >
                 ← Back to Home
             </Link>
@@ -42,13 +42,15 @@ export default function ProjectDetail() {
                     <img
                         key={i}
                         src={img}
-                        className="w-full rounded-xl shadow-lg break-inside-avoid"
+                        className="w-full rounded-xl shadow-lg break-inside-avoid
+                                    hover:transition-transform duration-500 
+                                    hover:scale-110"
                     />
                 ))}
             </div>
 
             {/* Links */}
-            <div className="mt-10 flex flex-wrap gap-4 text-lg justify-center">
+            <div className="mt-16 flex flex-wrap gap-4 text-lg justify-center">
                 {project.links?.map((link, i) => (
                     <a
                         key={i}
@@ -58,16 +60,16 @@ export default function ProjectDetail() {
                         className="
                             group
                             flex items-center gap-3 
-                            px-5 py-2.5 rounded-sm
+                            px-5 py-2.5 rounded-lg
                             border border-primary/40 
-                            text-primary font-semibold font-manrope text-md
+                            text-primary font-base font-manrope text-md
 
                             bg-white/40 backdrop-blur-sm
                             
 
                             transition-all duration-300
 
-                            hover:border-primary hover:bg-primary/10 
+                            hover:border-primary hover:bg-primary/5
                             hover:-translate-y-1 active:scale-[0.98]
                         "
                     >

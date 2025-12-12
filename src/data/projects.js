@@ -60,7 +60,6 @@ export const projects = [
             "/images/etatib4.png",
             "/images/etatib3.png",
             "/images/etatib2.png",
-            "/images/etatib6.png",
         ],
         tech: [
             "Laravel",

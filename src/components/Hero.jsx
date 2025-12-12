@@ -2,11 +2,8 @@ export default function Hero() {
   return (
     <section
       id="profile"
-      className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden pt-28 md:pt-0"
     >
-      {/* Animated gradient blobs */}
-      <div className="absolute top-[-10%] left-[-20%] w-[600px] h-[600px] bg-primary/25 blur-[160px] rounded-full animate-pulse-slow -z-10"></div>
-      <div className="absolute bottom-[-10%] right-[-15%] w-[500px] h-[500px] bg-secondary/25 blur-[160px] rounded-full animate-pulse-slower -z-10"></div>
 
       <div className="
         relative max-w-6xl mx-auto px-6
@@ -14,32 +11,41 @@ export default function Hero() {
       ">
 
         {/* Photo with subtle floating animation */}
-        <img
-          src="images/profile.jpg"
-          alt="Profile"
-          className="
-            w-60 h-60 md:w-[360px] md:h-[360px]
-            object-cover rounded-4xl shadow-xl
-            animate-float
-          "
-        />
+        <div className="photo-wrapper animate-fadeUp">
+          <div className="photo-card">
+            {/* FRONT SIDE */}
+            <img
+              src="images/profile.jpg"
+              className="photo-front"
+            />
+
+            {/* BACK SIDE */}
+            <div className="photo-back">
+              <h2 className="text-xl font-semibold">Rahmad Dwi Ferdyan</h2>
+              <p className="text-sm text-gray-600 mt-2">Website & Mobile App Developer</p>
+            </div>
+          </div>
+        </div>
 
         {/* Text content */}
-        <div className="max-w-xl animate-fadeUp">
-            <p className="text-md text-gray-500 mb-4">Rahmad Dwi Ferdyan</p>
+        <div className="max-w-xl animate-fadeUp text-center md:text-left">
+          <p className="text-md text-gray-500 mb-4">Rahmad Dwi Ferdyan</p>
           <h1 className="text-5xl md:text-6xl font-sora font-bold leading-tight">
             Hello there, I’m{" "}
-            <span className="text-primary">Ferdy</span>
+            <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text">
+              Ferdy
+            </span>
+
           </h1>
 
           <p className="mt-6 text-gray-700 font-manrope leading-relaxed text-lg">
-            I am a passionate Website and App Developer who delivers high-quality,
+            I am a passionate Website and Mobile App Developer who delivers high-quality,
             reliable solutions by combining strong problem-solving with UI/UX principles
             to create intuitive and meaningful experiences.
           </p>
 
           {/* Social Icons */}
-          <div className="flex gap-5 mt-8">
+          <div className="flex gap-5 mt-8 md:text-center justify-center md:justify-start">
             <a href="https://github.com/RahmadDwiFerdyan" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition">
               <img src="/icons/github-mark.svg" className="w-7" />
             </a>

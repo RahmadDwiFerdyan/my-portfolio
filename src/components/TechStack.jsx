@@ -44,10 +44,6 @@ export default function TechStack() {
     return (
         <section id="stack" className="relative py-28 max-w-7xl mx-auto px-6">
 
-            {/* Parallax gradient blobs */}
-            <div className="absolute left-[-10%] bottom-[-5%] w-[500px] h-[500px] bg-primary/20 blur-[150px] rounded-full -z-10"></div>
-            <div className="absolute right-[-5%] top-[10%] w-[400px] h-[400px] bg-secondary/20 blur-[140px] rounded-full -z-10"></div>
-
             <h2
                 ref={titleRef}
                 className={`
@@ -86,7 +82,7 @@ export default function TechStack() {
                 text-primary font-semibold font-manrope text-[16px]
                 shadow-sm
                 transition-all duration-300
-                hover:border-primary hover:bg-primary/10 hover:-translate-y-1
+                hover:border-primary hover:bg-primary/5 hover:-translate-y-1
                 active:scale-[0.97]
                 "
                 >
