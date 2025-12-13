@@ -50,7 +50,7 @@ export default function Projects() {
         bg-[linear-gradient(to_top,white,rgba(255,255,255,0)_40%)]
       "
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-12 md:px-6">
 
         {/* TITLE WITH UNDERLINE ANIMATION */}
         <h2

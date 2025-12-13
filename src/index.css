@@ -71,14 +71,38 @@
   animation: fadeStagger 0.8s forwards;
 }
 
+.tech-tilt-wrapper {
+  perspective: 1000px;
+}
+
 .tech-tilt {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
 }
 
 .tech-tilt:hover {
-  transform: translateY(-4px) rotateX(4deg) rotateY(-4deg);
-  box-shadow: 0 12px 32px rgba(123, 97, 255, 0.15);
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 0px 10px rgba(123, 97, 255, 0.15);
 }
+
+.tech-tilt img {
+  transition: transform 0.35s ease;
+}
+
+.tech-tilt p {
+  transition: transform 0.35s ease;
+}
+
+.tech-tilt:hover img {
+  transform: translateY(-4px) scale(1.15);
+}
+
+.tech-tilt:hover p {
+  transform: translateY(8px);
+}
+
 
 .category-title {
   position: relative;
@@ -93,7 +117,7 @@
   width: 0%;
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-  transition: width 0.4s ease-out;
+  transition: width 2s ease-out;
 }
 
 .category-title.show-underline::after {

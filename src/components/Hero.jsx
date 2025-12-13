@@ -6,7 +6,7 @@ export default function Hero() {
     >
 
       <div className="
-        relative max-w-6xl mx-auto px-6
+        relative max-w-6xl mx-auto px-12 md:px-6
         flex flex-col md:flex-row items-center gap-16
       ">
 
@@ -20,10 +20,10 @@ export default function Hero() {
             />
 
             {/* BACK SIDE */}
-            <div className="photo-back">
-              <h2 className="text-xl font-semibold">Rahmad Dwi Ferdyan</h2>
-              <p className="text-sm text-gray-600 mt-2">Website & Mobile App Developer</p>
-            </div>
+              <img
+              src="images/profile.png"
+              className="photo-back"
+            />
           </div>
         </div>
 

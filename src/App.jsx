@@ -37,7 +37,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-scree">
+    <div className="relative min-h-screen">
 
       {/* NOISE */}
       <div className="noise-bg"></div>

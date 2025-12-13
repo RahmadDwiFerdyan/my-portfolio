@@ -1,30 +1,29 @@
 import { Link } from "react-router-dom";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 
 const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <Link to={`/project/${project.id}`} className="block">
       <div
         ref={ref}
-        className={`
+        className="
           group relative rounded-2xl border border-black/10
           bg-white/30 shadow-[0_6px_20px_rgba(0,0,0,0.03)]
           overflow-hidden transition-all duration-500
           hover:shadow-[0_10px_50px_rgba(123,97,255,0.25)]
           hover:-translate-y-3 hover:scale-[1.015]
-          project-reveal 
-          min-h-[560px]
-        `}
+          project-reveal min-h-0 md:min-h-[520px]
+        "
       >
 
         {/* Glow */}
         <div className="
           absolute inset-0 opacity-0 group-hover:opacity-20 transition duration-500
           bg-linear-to-br from-primary/10 to-secondary/10 blur-3xl
-        "></div>
+        " />
 
-        {/* Inner */}
         <div className="p-5 relative z-10">
 
           {/* Thumbnail */}
@@ -35,7 +34,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
               className="
                 w-full h-60 object-cover rounded-xl
                 transition-transform duration-500
-                group-hover:scale-105 group-hover:rotate-0
+                group-hover:scale-105
               "
             />
           </div>
@@ -45,28 +44,58 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
             {project.title}
           </h3>
 
-          {/* Description */}
-          <p className="text-gray-600 text-md mt-2 leading-relaxed font-manrope">
+          {/* DESCRIPTION */}
+          <div
+            className={`
+              mt-2 text-gray-600 text-md leading-relaxed font-manrope
+              transition-all duration-300
+              ${expanded ? "block" : "hidden"}
+              md:block
+            `}
+          >
             {project.description}
-          </p>
+          </div>
 
-          {/* Badges FIX */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          {/* TECH STACK */}
+          <div
+            className={`
+              flex flex-wrap gap-2 mt-4
+              transition-all duration-300
+              ${expanded ? "flex" : "hidden"}
+              md:flex
+            `}
+          >
             {project.tech?.map((t, i) => (
               <span
                 key={i}
                 className="
-                  text-md px-3 py-1 text-gray-600 rounded-full bg-white/60 backdrop-blur-sm
-                  border border-black/10 
-                  font-medium font-manrope 
-                  transition-all duration-500
-                  group-hover:translate-y-3
+                  text-md px-3 py-1 text-gray-600 rounded-full
+                  bg-white/60 backdrop-blur-sm
+                  border border-black/10
+                  font-medium font-manrope
                 "
               >
                 {t}
               </span>
             ))}
           </div>
+
+          {/* EXPAND BUTTON — MOBILE ONLY */}
+          <button
+            onClick={(e) => {
+              e.preventDefault();   // prevent Link
+              e.stopPropagation();  // prevent bubbling
+              setExpanded(!expanded);
+            }}
+            className="
+              mt-4 md:hidden
+              text-sm font-semibold font-manrope
+              text-primary
+              hover:underline
+            "
+          >
+            {expanded ? "Hide details" : "Show details"}
+          </button>
 
         </div>
       </div>

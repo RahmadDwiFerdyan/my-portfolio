@@ -42,7 +42,7 @@ export default function TechStack() {
     const [titleRef, visible] = useReveal();
 
     return (
-        <section id="stack" className="relative py-28 max-w-7xl mx-auto px-6">
+        <section id="stack" className="relative py-28 max-w-7xl mx-auto px-12 md:px-6">
 
             <h2
                 ref={titleRef}
@@ -54,10 +54,10 @@ export default function TechStack() {
                 Tech Stack
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-16">
                 {techCategories.map((cat, idx) => (
-                    <div key={idx} className="text-center space-y-6">
-                        <h3 className="font-sora text-xl font-semibold">{cat.title}</h3>
+                    <div key={idx} className="text-center space-y-4">
+                        <h3 className="font-sora text-lg font-semibold">{cat.title}</h3>
 
                         <div className="grid gap-5">
                             {cat.items.map((item, i) => (

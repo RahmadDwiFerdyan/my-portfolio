@@ -6,7 +6,7 @@ export default function ProjectDetail() {
     const project = projects.find((p) => p.id == id);
 
     return (
-        <section className="pt-16 pb-20 max-w-7xl mx-auto px-6 font-manrope">
+        <section className="pt-16 pb-20 max-w-7xl mx-auto px-14 lg:px-6  font-manrope">
 
             {/* Back Button */}
             <Link
@@ -22,14 +22,14 @@ export default function ProjectDetail() {
             </h1>
 
             {/* Description */}
-            <p className="text-xl mt-2 text-gray-600">{project.description}</p>
+            <p className=" text-md lg:text-xl mt-2 text-gray-600">{project.description}</p>
 
             {/* Tech Stack */}
             <div className="mt-6 flex flex-wrap gap-3">
                 {project.tech?.map((tech, i) => (
                     <span
                         key={i}
-                        className="px-4 py-1.5 bg-primary/10 text-primary font-manrope font-semibold text-md rounded-full"
+                        className="px-4 py-1.5 border border-gray-300 text-gray-500 font-manrope font-medium text-md rounded-full"
                     >
                         {tech}
                     </span>
@@ -37,14 +37,14 @@ export default function ProjectDetail() {
             </div>
 
             {/* Bento Image Grid */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 mt-10 space-y-4">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 mt-10 space-y-8">
                 {project.images.map((img, i) => (
                     <img
                         key={i}
                         src={img}
-                        className="w-full rounded-xl shadow-lg break-inside-avoid
+                        className=" lg:w-full rounded-xl shadow-lg break-inside-avoid
                                     hover:transition-transform duration-500 
-                                    hover:scale-110"
+                                    hover:scale-105"
                     />
                 ))}
             </div>
@@ -60,7 +60,7 @@ export default function ProjectDetail() {
                         className="
                             group
                             flex items-center gap-3 
-                            px-5 py-2.5 rounded-lg
+                            px-5 py-2.5 rounded-full
                             border border-primary/40 
                             text-primary font-base font-manrope text-md
 
@@ -93,8 +93,6 @@ export default function ProjectDetail() {
 
                 ))}
             </div>
-
-
 
         </section>
     );

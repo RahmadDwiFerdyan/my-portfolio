@@ -34,7 +34,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU OVERLAY */}
       <div
-        className={`fixed inset-0 bg-black/20 backdrop-blur-md z-50 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/40 z-50 transition-opacity duration-300 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setOpen(false)}
@@ -43,7 +43,7 @@ export default function Navbar() {
       {/* MOBILE MENU PANEL */}
       <div
         className={`fixed top-0 right-0 h-full w-[75%] max-w-[300px] 
-          bg-white/80 backdrop-blur-xl shadow-xl z-60
+          bg-white backdrop-blur-xl shadow-xl z-60
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "translate-x-full"}
         `}
