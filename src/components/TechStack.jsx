@@ -47,7 +47,7 @@ export default function TechStack() {
             <h2
                 ref={titleRef}
                 className={`
-          text-4xl font-sora font-bold text-center mb-16 category-title 
+          text-4xl font-sora font-bold text-center mb-8 lg:mb-16 category-title 
           ${visible ? "show-underline" : ""}
         `}
             >
@@ -57,8 +57,7 @@ export default function TechStack() {
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-16">
                 {techCategories.map((cat, idx) => (
                     <div key={idx} className="text-center space-y-4">
-                        <h3 className="font-sora text-lg font-semibold">{cat.title}</h3>
-
+                        <h3 className="font-sora text-md pt-4 lg:text-xl font-semibold">{cat.title}</h3>
                         <div className="grid gap-5">
                             {cat.items.map((item, i) => (
                                 <TechCard key={i} index={i} icon={item.icon} label={item.label} />
