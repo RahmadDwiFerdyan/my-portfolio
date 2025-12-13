@@ -6,7 +6,7 @@ export default function Hero() {
     >
 
       <div className="
-        relative max-w-6xl mx-auto px-12 md:px-6
+        relative max-w-6xl mx-auto px-10 md:px-6
         flex flex-col md:flex-row items-center gap-16
       ">
 

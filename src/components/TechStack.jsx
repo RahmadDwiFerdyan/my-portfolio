@@ -42,7 +42,7 @@ export default function TechStack() {
     const [titleRef, visible] = useReveal();
 
     return (
-        <section id="stack" className="relative py-28 max-w-7xl mx-auto px-12 md:px-6">
+        <section id="stack" className="relative py-28 max-w-7xl mx-auto px-10 md:px-6">
 
             <h2
                 ref={titleRef}
