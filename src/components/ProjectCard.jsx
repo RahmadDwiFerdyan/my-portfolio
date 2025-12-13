@@ -5,59 +5,83 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Link to={`/project/${project.id}`} className="block">
+    <Link
+      to={`/project/${project.id}`}
+      className="
+        block
+      "
+    >
       <div
         ref={ref}
         className="
-          group relative rounded-2xl border border-black/10
-          bg-white/30 shadow-[0_6px_20px_rgba(0,0,0,0.03)]
-          overflow-hidden transition-all duration-500
-          md:hover:shadow-[0_10px_50px_rgba(123,97,255,0.25)]
-          md:hover:-translate-y-3
-          md:hover:scale-[1.015]
-          project-reveal min-h-0 md:min-h-[520px]
+          overflow-hidden
+          min-h-0
+          bg-white/30
+          rounded-2xl border border-black/10
+          shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all
+          group relative duration-500 project-reveal
+          md:min-h-[520px] md:hover:shadow-[0_10px_50px_rgba(123,97,255,0.25)] md:hover:-translate-y-3 md:hover:scale-[1.015]
         "
       >
-
-
         {/* Glow */}
-        <div className="
-        absolute inset-0 opacity-0
-        md:group-hover:opacity-20 transition duration-500
-        bg-linear-to-br from-primary/10 to-secondary/10 blur-3xl
-      " />
+        <div
+          className="
+            bg-linear-to-br from-primary/10 to-secondary/10
+            opacity-0
+            absolute inset-0 transition duration-500 blur-3xl
+            md:group-hover:opacity-20
+          "
+        />
 
-
-        <div className="p-5 relative z-10">
-
+        <div
+          className="
+            z-10
+            p-5
+            relative
+          "
+        >
           {/* Thumbnail */}
-          <div className="overflow-hidden rounded-xl shadow-lg">
+          <div
+            className="
+              overflow-hidden
+              rounded-xl
+              shadow-lg
+            "
+          >
             <img
               src={project.thumbnail}
               alt={project.title}
               className="
-                w-full h-60 object-cover rounded-xl
-                transition-transform duration-500
-                group-hover:scale-105
+                object-cover
+                w-full h-60
+                rounded-xl
+                transition-transform
+                duration-500 group-hover:scale-105
               "
             />
           </div>
 
           {/* Title */}
-          <h3 className="
-            mt-5 text-2xl font-sora font-semibold text-gray-800
-            md:group-hover:text-primary transition
-          ">
+          <h3
+            className="
+              mt-5
+              text-2xl font-sora font-semibold text-gray-800
+              transition
+              md:group-hover:text-primary
+            "
+          >
             {project.title}
           </h3>
 
           {/* DESCRIPTION */}
           <div
             className={`
-              mt-2 text-gray-600 text-md leading-relaxed font-manrope
-              transition-all duration-300
-              ${expanded ? "block" : "hidden"}
+              mt-2
+              text-gray-600 text-md leading-relaxed font-manrope
+              transition-all
+              duration-300
               md:block
+              ${expanded ? "block" : "hidden"}
             `}
           >
             {project.description}
@@ -66,20 +90,23 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           {/* TECH STACK */}
           <div
             className={`
-              flex flex-wrap gap-2 mt-4
-              transition-all duration-300
-              ${expanded ? "flex" : "hidden"}
+              flex flex-wrap
+              mt-4
+              transition-all
+              gap-2 duration-300
               md:flex
+              ${expanded ? "flex" : "hidden"}
             `}
           >
             {project.tech?.map((t, i) => (
               <span
                 key={i}
                 className="
-                  text-md px-3 py-1 text-gray-600 rounded-full
-                  bg-white/60 backdrop-blur-sm
-                  border border-black/10
-                  font-medium font-manrope
+                  px-3 py-1
+                  text-md text-gray-600 font-medium font-manrope
+                  bg-white/60
+                  rounded-full border border-black/10
+                  backdrop-blur-sm
                 "
               >
                 {t}
@@ -87,23 +114,48 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
             ))}
           </div>
 
-          {/* EXPAND BUTTON — MOBILE ONLY */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();   // prevent Link
-              e.stopPropagation();  // prevent bubbling
-              setExpanded(!expanded);
-            }}
+          {/* ACTIONS — MOBILE ONLY */}
+          <div
             className="
-              mt-4 md:hidden
-              text-sm font-semibold font-manrope
-              text-primary
-              hover:underline
+              flex
+              mt-5
+              items-center justify-between
+              md:hidden
             "
           >
-            {expanded ? "Hide details" : "Show details"}
-          </button>
+            {/* EXPAND / COLLAPSE */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setExpanded(!expanded);
+              }}
+              className="
+                text-sm font-semibold font-manrope text-primary
+              "
+            >
+              {expanded ? "Hide details" : "Show details"}
+            </button>
 
+            {/* SEE MORE — ONLY WHEN EXPANDED */}
+            {expanded && (
+              <Link
+                to={`/project/${project.id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="
+                  inline-flex
+                  px-4 py-2
+                  text-white text-sm font-semibold font-manrope
+                  bg-primary
+                  rounded-full border border-primary/40
+                  transition-all
+                  items-center gap-2 backdrop-blur-sm duration-300 active:scale-[0.96]
+                "
+              >
+                See more →
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </Link>
