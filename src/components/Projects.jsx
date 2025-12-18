@@ -6,6 +6,7 @@ export default function Projects() {
   const cardRefs = useRef([]);
   const titleRef = useRef(null);   // <-- NEW
   const titleVisible = useRef(false);
+  
 
   useEffect(() => {
     // Reveal cards
