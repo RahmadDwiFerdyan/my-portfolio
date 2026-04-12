@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Children, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { projects } from "../data/projects";
 import ReactMarkdown from "react-markdown";
@@ -12,12 +12,122 @@ const MARKDOWN_BY_PATH = import.meta.glob("../content/projects/*.md", {
 export default function ProjectDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
+    return <ProjectDetailInner key={id} id={id} navigate={navigate} />;
+}
+
+function ProjectDetailInner({ id, navigate }) {
+    const SCROLL_OFFSET = 96;
+    const [language, setLanguage] = useState(() => {
+        try {   
+            return window.localStorage.getItem("projectDetailLanguage") || "en";
+        } catch {
+            return "id";
+        }
+    });
     const project = projects.find((p) => p.id == id);
 
-    const markdownPath = project?.slug
-        ? `../content/projects/${project.slug}.md`
-        : null;
-    const markdown = (markdownPath && MARKDOWN_BY_PATH[markdownPath]) || "";
+    const markdown = useMemo(() => {
+        if (!project?.slug) return "";
+        const slug = project.slug;
+
+        const candidates =
+            language === "en"
+                ? [
+                    `../content/projects/${slug}.en.md`,
+                    `../content/projects/${slug}.en-US.md`,
+                    `../content/projects/${slug}.id.md`,
+                    `../content/projects/${slug}.md`,
+                ]
+                : [
+                    `../content/projects/${slug}.id.md`,
+                    `../content/projects/${slug}.md`,
+                    `../content/projects/${slug}.en.md`,
+                ];
+
+        const key = candidates.find((p) => Boolean(MARKDOWN_BY_PATH[p]));
+        return (key && MARKDOWN_BY_PATH[key]) || "";
+    }, [project?.slug, language]);
+
+    const renderPseudoBr = (nodeChildren) => {
+        const brRe = /<br\s*\/?>/gi;
+        const out = [];
+
+        for (const child of Children.toArray(nodeChildren)) {
+            if (typeof child !== "string") {
+                out.push(child);
+                continue;
+            }
+
+            const parts = child.split(brRe);
+            for (let i = 0; i < parts.length; i += 1) {
+                if (i > 0) out.push(<br key={`mdbr-${out.length}-${i}`} />);
+                if (parts[i]) out.push(parts[i]);
+            }
+        }
+
+        return out;
+    };
+
+    const hasVisibleContent = (nodeChildren) => {
+        for (const child of Children.toArray(nodeChildren)) {
+            if (typeof child === "string") {
+                if (child.replace(/<br\s*\/?>/gi, "").trim()) return true;
+                continue;
+            }
+            // Any React element (e.g. <img/>, <strong/>) counts as visible content.
+            return true;
+        }
+        return false;
+    };
+
+    const CollapsibleTable = ({ children }) => {
+        const COLLAPSED_MAX_HEIGHT = 160;
+        const contentRef = useRef(null);
+        const [expanded, setExpanded] = useState(false);
+        const [canCollapse, setCanCollapse] = useState(false);
+
+        useLayoutEffect(() => {
+            const el = contentRef.current;
+            if (!el) return;
+            const nextCanCollapse = el.scrollHeight > COLLAPSED_MAX_HEIGHT + 24;
+            setCanCollapse(nextCanCollapse);
+            if (!nextCanCollapse) setExpanded(false);
+        }, [children]);
+
+        return (
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5">
+                <div
+                    ref={contentRef}
+                    className={expanded ? "overflow-x-auto" : "overflow-x-auto overflow-y-hidden"}
+                    style={expanded ? undefined : { maxHeight: COLLAPSED_MAX_HEIGHT }}
+                >
+                    {children}
+                </div>
+
+                {canCollapse ? (
+                    <div className="border-t border-white/10 px-4 py-2">
+                        <button
+                            type="button"
+                            onClick={() => setExpanded((v) => !v)}
+                            className="block mx-auto text-sm font-semibold text-primary hover:underline"
+                        >
+                            {expanded ? "See less ↑" : "See more ↓"}
+                        </button>
+                    </div>
+                ) : null}
+            </div>
+        );
+    };
+
+    const setAndStoreLanguage = (nextLanguage) => {
+        setLanguage(nextLanguage);
+        try {
+            window.localStorage.setItem("projectDetailLanguage", nextLanguage);
+        } catch {
+            // ignore
+        }
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    };
 
     const { sections, headingIds } = useMemo(() => {
         const ids = [];
@@ -60,30 +170,34 @@ export default function ProjectDetail() {
 
     const [activeSection, setActiveSection] = useState(sections[0]?.id);
     const sectionRefs = useRef({});
-    const headingIndexRef = useRef(0);
+    const jumpMenuRef = useRef(null);
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
 
     useEffect(() => {
         // Always start from the top when opening a project detail.
-        setActiveSection(sections[0]?.id);
-        headingIndexRef.current = 0;
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id]);
+    }, []);
 
     useEffect(() => {
-        const SECTION_OFFSET = 140;
         let rafId = 0;
 
         const computeActive = () => {
             const ordered = sections.map((s) => sectionRefs.current[s.id]).filter(Boolean);
             if (!ordered.length) return;
 
+            const scrollBottom = window.innerHeight + window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight;
+            if (scrollBottom >= pageHeight - 8) {
+                setActiveSection(sections[sections.length - 1]?.id);
+                return;
+            }
+
             let current = sections[0]?.id;
             for (const s of sections) {
                 const el = sectionRefs.current[s.id];
                 if (!el) continue;
                 const top = el.getBoundingClientRect().top;
-                if (top - SECTION_OFFSET <= 0) current = s.id;
+                if (top - SCROLL_OFFSET <= 16) current = s.id; //ini
             }
 
             setActiveSection(current);
@@ -106,13 +220,51 @@ export default function ProjectDetail() {
             window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", onScroll);
         };
-    }, [id]);
+    }, [sections]);
+
+    useEffect(() => {
+        let rafId = 0;
+
+        const computeShow = () => {
+            const el = jumpMenuRef.current;
+            if (!el) {
+                setShowScrollToTop(window.scrollY > 200);
+                return;
+            }
+
+            const rect = el.getBoundingClientRect();
+            setShowScrollToTop(rect.top < 0);
+        };
+
+        const onScroll = () => {
+            if (rafId) return;
+            rafId = window.requestAnimationFrame(() => {
+                rafId = 0;
+                computeShow();
+            });
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        onScroll();
+
+        return () => {
+            if (rafId) window.cancelAnimationFrame(rafId);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+        };
+    }, []);
 
     const scrollToSection = (sectionId) => {
         const el = document.getElementById(sectionId);
         if (!el) return;
         setActiveSection(sectionId);
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     };
 
     const handleBackToHome = () => {
@@ -157,12 +309,45 @@ export default function ProjectDetail() {
                             <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-manrope text-white/70">
                                 UX Case Study
                             </span>
+
+                            <div
+                                className="ml-3 inline-flex overflow-hidden rounded-lg border border-white/10 bg-white/5"
+                                role="group"
+                                aria-label="Content language"
+                            >
+                                <button
+                                    type="button"
+                                    onClick={() => setAndStoreLanguage("id")}
+                                    aria-pressed={language === "id"}
+                                    className={
+                                        language === "id"
+                                            ? "px-3 py-1 text-xs font-manrope font-semibold text-primary bg-primary/10"
+                                            : "px-3 py-1 text-xs font-manrope font-semibold text-white/70 hover:text-primary hover:bg-white/5 transition"
+                                    }
+                                >
+                                    ID 
+                                </button>
+                                <div className="w-px bg-white/10" aria-hidden="true" />
+                                <button
+                                    type="button"
+                                    onClick={() => setAndStoreLanguage("en")}
+                                    aria-pressed={language === "en"}
+                                    className={
+                                        language === "en"
+                                            ? "px-3 py-1 text-xs font-manrope font-semibold text-primary bg-primary/10"
+                                            : "px-3 py-1 text-xs font-manrope font-semibold text-white/70 hover:text-primary hover:bg-white/5 transition"
+                                    }
+                                >
+                                    EN
+                                </button>
+                            </div>
+
                             <h1 className="mt-3 font-sora text-2xl font-bold text-white leading-tight">
                                 {project.title}
                             </h1>
                         </div>
 
-                        <div className="border-t border-white/10 p-4">
+                        <div ref={jumpMenuRef} className="border-t border-white/10 p-4">
                             <p className="font-manrope text-white/70">Jump to</p>
 
                             <nav className="mt-4 flex flex-col gap-2 font-sora">
@@ -200,24 +385,24 @@ export default function ProjectDetail() {
                 {/* RIGHT CONTENT */}
                 <div className="md:col-span-8 lg:col-span-9">
                     {/* SECTIONS */}
-                    <div className="mt-10 space-y-16">
+                    <div className="mt-8 space-y-12">
                         {markdown ? (
                             (() => {
-                                headingIndexRef.current = 0;
+                                let headingIndex = 0;
 
                                 return (
                                     <ReactMarkdown
                                         remarkPlugins={[remarkGfm]}
                                         components={{
                                             h2: ({ children, ...props }) => {
-                                                const idx = headingIndexRef.current;
+                                                const idx = headingIndex;
                                                 const id = headingIds[idx] || undefined;
-                                                headingIndexRef.current += 1;
+                                                headingIndex += 1;
 
                                                 const wrapperClass =
                                                     idx === 0
-                                                        ? "scroll-mt-28"
-                                                        : "scroll-mt-28 mt-12 pt-12 border-t border-white/10";
+                                                        ? "scroll-mt-36"
+                                                        : "scroll-mt-36 mt-10 pt-10 border-t border-white/10";
 
                                                 return (
                                                     <div
@@ -229,7 +414,7 @@ export default function ProjectDetail() {
                                                     >
                                                         <h2
                                                             {...props}
-                                                            className="text-3xl md:text-4xl font-sora font-bold text-primary"
+                                                            className="my-0 text-xl md:text-2xl font-sora font-bold text-primary"
                                                         >
                                                             {children}
                                                         </h2>
@@ -237,19 +422,24 @@ export default function ProjectDetail() {
                                                 );
                                             },
                                             h3: ({ children, ...props }) => (
-                                                <h3 {...props} className="mt-8 text-xl font-sora font-bold text-white">
+                                                <h3 {...props} className="mt-12 mb-3 text-lg md:text-xl font-sora font-bold text-white leading-tight">
                                                     {children}
                                                 </h3>
                                             ),
+                                            h4: ({ children, ...props }) => (
+                                                <h4 {...props} className="ml-6 mt-6 mb-3 font-bold text-md md:text-lg font-sora text-white leading-tight">
+                                                    {children}
+                                                </h4>
+                                            ),
                                             p: ({ children, ...props }) => (
-                                                <p {...props} className="mt-4 text-white/80 text-lg leading-relaxed">
+                                                <p {...props} className="mt-1 mb-3 text-white/90 text-sm font-medium md:text-base leading-6 md:leading-relaxed">
                                                     {children}
                                                 </p>
                                             ),
                                             ul: ({ children, ...props }) => (
                                                 <ul
                                                     {...props}
-                                                    className="mt-4 space-y-2 text-white/80 text-lg list-disc pl-6"
+                                                    className="mt-1 mb-5 space-y-1 text-white/90 text-sm font-medium md:text-base list-disc pl-6"
                                                 >
                                                     {children}
                                                 </ul>
@@ -257,10 +447,19 @@ export default function ProjectDetail() {
                                             ol: ({ children, ...props }) => (
                                                 <ol
                                                     {...props}
-                                                    className="mt-4 space-y-2 text-white/80 text-lg list-decimal pl-6"
+                                                    className="mt-1 mb-5 space-y-1 text-white/90 text-sm font-medium md:text-base list-decimal pl-6"
                                                 >
                                                     {children}
                                                 </ol>
+                                            ),
+                                            code: ({ children, ...props }) => (
+                                                <span
+                                                    {...props}
+                                                    className="font-bold bg-white/16 px-1 rounded"
+                                                    style={{ textDecoration: "none" }}
+                                                >
+                                                    {children}
+                                                </span>
                                             ),
                                             li: ({ children, ...props }) => (
                                                 <li {...props} className="leading-relaxed">
@@ -277,34 +476,85 @@ export default function ProjectDetail() {
                                                     {children}
                                                 </a>
                                             ),
-                                            img: ({ ...props }) => (
-                                                <img
-                                                    {...props}
-                                                    loading="lazy"
-                                                    className="mt-6 w-full rounded-2xl border border-white/10 bg-white/5"
-                                                    alt={props.alt || ""}
-                                                />
-                                            ),
+                                            img: ({ ...props }) => {
+                                                const title = props.title || "";
+                                                const match = /(\b(?:w|width|maxw|max-width)\s*=\s*)(\d+%|\d+px|\d+)(\b)/i.exec(title);
+                                                const rawValue = match?.[2];
+                                                const widthValue = rawValue
+                                                    ? /^\d+$/.test(rawValue)
+                                                        ? `${rawValue}px`
+                                                        : rawValue
+                                                    : null;
+
+                                                const wrapperStyle = widthValue
+                                                    ? widthValue.endsWith("%")
+                                                        ? { width: widthValue }
+                                                        : { maxWidth: widthValue, width: "100%" }
+                                                    : undefined;
+
+                                                const wrapperClass = widthValue
+                                                    ? "mt-0 mx-auto block"
+                                                    : "mt-0 block";
+
+                                                const cleanTitle = match
+                                                    ? title.replace(match[0], "").replace(/\s{2,}/g, " ").trim()
+                                                    : title;
+
+                                                return props.src ? (
+                                                    <a
+                                                        href={props.src}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className={wrapperClass}
+                                                        style={wrapperStyle}
+                                                        title={cleanTitle || "Open image in new tab"}
+                                                    >
+                                                        <img
+                                                            {...props}
+                                                            title={cleanTitle || undefined}
+                                                            loading="lazy"
+                                                            className="w-full cursor-zoom-in rounded-2xl border border-white/10 bg-white/5"
+                                                            alt={props.alt || ""}
+                                                        />
+                                                    </a>
+                                                ) : (
+                                                    <img
+                                                        {...props}
+                                                        title={cleanTitle || undefined}
+                                                        loading="lazy"
+                                                        className={widthValue ? "mt-0 mx-auto w-full rounded-2xl border border-white/10 bg-white/5" : "mt-6 w-full rounded-2xl border border-white/10 bg-white/5"}
+                                                        style={wrapperStyle}
+                                                        alt={props.alt || ""}
+                                                    />
+                                                );
+                                            },
                                             table: ({ children, ...props }) => (
-                                                <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10 bg-white/5">
-                                                    <table {...props} className="min-w-full text-left">
+                                                <CollapsibleTable>
+                                                    <table {...props} className="min-w-full text-left border-collapse">
                                                         {children}
                                                     </table>
-                                                </div>
+                                                </CollapsibleTable>
                                             ),
                                             thead: ({ children, ...props }) => (
-                                                <thead {...props} className="border-b border-white/10">
+                                                <thead {...props}>
                                                     {children}
                                                 </thead>
                                             ),
                                             th: ({ children, ...props }) => (
-                                                <th {...props} className="px-4 py-3 font-sora font-semibold text-white">
-                                                    {children}
+                                                <th
+                                                    {...props}
+                                                    className={
+                                                        hasVisibleContent(children)
+                                                            ? "border border-white/10 px-3 py-2 font-sora text-sm md:text-base font-semibold text-white"
+                                                            : "border border-white/10 px-3 py-2 text-sm md:text-base text-white/80 font-normal align-top"
+                                                    }
+                                                >
+                                                    {renderPseudoBr(children)}
                                                 </th>
                                             ),
                                             td: ({ children, ...props }) => (
-                                                <td {...props} className="px-4 py-3 text-white/80">
-                                                    {children}
+                                                <td {...props} className="border border-white/10 px-3 py-2 text-sm md:text-base text-white/80 align-top">
+                                                    {renderPseudoBr(children)}
                                                 </td>
                                             ),
                                         }}
@@ -363,6 +613,17 @@ export default function ProjectDetail() {
                     ) : null}
                 </div>
             </div>
+
+            {showScrollToTop ? (
+                <button
+                    type="button"
+                    onClick={scrollToTop}
+                    className="fixed bottom-6 right-6 z-30 inline-flex items-center justify-center rounded-full border border-white/10 bg-[#0B1C2D]/75 px-4 py-3 font-sora text-sm font-semibold text-primary backdrop-blur-sm hover:bg-white/15 hover:border-white/20 transition"
+                    aria-label="Scroll to top"
+                >
+                    ↑ Back to Top
+                </button>
+            ) : null}
         </section>
     );
 }

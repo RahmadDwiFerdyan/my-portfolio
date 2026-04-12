@@ -1,22 +1,11 @@
 export const projects = [
     {
         id: 1,
-        slug: "finance-app",
-        title: "Finance App",
+        slug: "edukids",
+        title: "EduKids",
         description:
             "A simple finance tracking app that helps users monitor expenses, manage budgets, and gain clear insights into their spending habits",
-        thumbnail: "/images/finance-cover.png",
-        images: [
-            "/images/finance1.png",
-            "/images/finance2.png",
-            "/images/finance3.png",
-        ],
-        tech: [
-            "React Native",
-            "Node.js",
-            "PostgreSQL",
-            "TailwindCSS",
-        ],
+        thumbnail: "/images/edukids/edukids-cover.png",
         links: [
             { label: "GitHub", url: "https://github.com/RahmadDwiFerdyan/finance-app", icon: "/icons/github-mark.svg" },
             { label: "Live Demo", url: "https://financemanager-rbcpx1gvx-rahmad-dwi-ferdyans-projects.vercel.app/", icon: "/icons/web.svg" }

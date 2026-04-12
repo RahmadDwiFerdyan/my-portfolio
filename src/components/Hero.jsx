@@ -55,11 +55,11 @@ export default function Hero() {
 
           {/* Social Icons */}
           <div className="flex gap-5 mt-8 md:text-center justify-center md:justify-start">
-            <a href="https://github.com/RahmadDwiFerdyan" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition">
-              <img src="/icons/github-mark.svg" className="w-7" />
-            </a>
+            {/* <a href="https://github.com/RahmadDwiFerdyan" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition">
+              <img src="/icons/email.svg" className="w-7.5" />
+            </a> */}
             <a href="https://www.linkedin.com/in/rahmadferdyan" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition">
-              <img src="/icons/linkedin.svg" className="w-7" />
+              <img src="/icons/linkedin.png" className="w-7" />
             </a>
           </div>
         </div>

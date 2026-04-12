@@ -43,7 +43,7 @@ export default function Projects() {
 
   return (
     <section id="projects">
-      <div className="max-w-7xl mx-auto px-10 md:px-6">
+      <div className="max-w-7xl mt-12 mx-auto px-10 md:px-6">
 
         {/* TITLE WITH UNDERLINE ANIMATION */}
         <h2
