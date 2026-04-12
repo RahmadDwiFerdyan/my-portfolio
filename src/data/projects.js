@@ -1,6 +1,7 @@
 export const projects = [
     {
         id: 1,
+        slug: "finance-app",
         title: "Finance App",
         description:
             "A simple finance tracking app that helps users monitor expenses, manage budgets, and gain clear insights into their spending habits",
@@ -23,6 +24,7 @@ export const projects = [
     },
     {
         id: 2,
+        slug: "sipresta",
         title: "SIPRESTA",
         description:
         "A web-based system for recording, organizing, and monitoring student achievements. Make data management more efficient, transparent, and structured",
@@ -50,6 +52,7 @@ export const projects = [
     },
     {
         id: 3,
+        slug: "e-tatib",
         title: "E-Tatib",
         description:
             "A web system for managing and monitoring student discipline, digitizing reporting, tracking, and evaluation processes",
@@ -75,6 +78,7 @@ export const projects = [
     },
     {
         id: 4,
+        slug: "pustaka-jti",
         title: "Pustaka JTI",
         description:
             "A digital platform for storing, managing, and sharing academic works, making research and project documentation accessible and well-organized",

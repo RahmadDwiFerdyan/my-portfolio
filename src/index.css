@@ -5,9 +5,15 @@
 /*  BASE LAYER            */
 /* ---------------------- */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
   body {
     font-family: var(--font-manrope);
-    background: white;
+    background: #0B1C2D;
+    color: white;
   }
 }
 
@@ -155,7 +161,7 @@
 .photo-wrapper {
   width: 240px;
   height: 240px;
-  perspective: 1200px;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -165,46 +171,81 @@
   }
 }
 
-.photo-card {
+.photo-scene {
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.6s ease;
-  transform-style: preserve-3d;
+  border-radius: 24px;
 }
 
-/* FLIP saat hover */
-.photo-wrapper:hover .photo-card {
-  transform: rotateY(180deg);
-}
-
-/* Both sides */
-.photo-front,
-.photo-back {
+/* Back + front image layers */
+.photo-back,
+.photo-front {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border-radius: 24px;
-  backface-visibility: hidden;
 }
 
-/* FRONT PHOTO */
-.photo-front {
+.photo-back {
+  z-index: 0;
   object-fit: cover;
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* BACK SIDE CONTENT */
-.photo-back {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border: 1px solid #e5e7eb;
-  transform: rotateY(180deg);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+.photo-front {
+  z-index: 20;
+  object-fit: contain;
 }
+
+/* Stars sit between back and front */
+.photo-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.photo-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.25);
+}
+
+.photo-wrapper:hover .photo-star {
+  animation: star-burst 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes star-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform:
+      translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)))
+      scale(1)
+      rotate(18deg);
+  }
+}
+
+/* Individual star directions + stagger */
+.star-1 { --x: -92px; --y: -72px; --d: 0ms; }
+.star-2 { --x: 86px;  --y: -58px; --d: 60ms; }
+.star-3 { --x: -108px; --y: 14px; --d: 120ms; }
+.star-4 { --x: 110px; --y: 18px; --d: 180ms; }
+.star-5 { --x: -54px; --y: 96px; --d: 240ms; }
+.star-6 { --x: 58px;  --y: 104px; --d: 300ms; }
 
 @keyframes subtle-bounce {
   0%, 100% {

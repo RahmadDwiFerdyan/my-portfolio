@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="relative py-10 text-center text-gray-600 font-manrope"
+      className="relative py-10 text-center text-white font-manrope"
     >
       {/* EMAIL */}
       <button

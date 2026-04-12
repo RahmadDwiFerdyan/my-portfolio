@@ -6,17 +6,17 @@ export default function Navbar() {
   return (
     <>
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-md shadow-sm">
-        <div className="max-w-6xl mx-auto flex items-center justify-between py-4 px-6">
+      <nav className="fixed top-0 w-full z-50 bg-[#0B1C2D] backdrop-blur-md shadow-md shadow-black/30">
+        <div className="max-w-6xl mx-auto flex items-center justify-between py-6 px-6">
           <h1 className="font-sora text-lg font-semibold">
             Ferdy's Portfolio
           </h1>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8 font-manrope">
-            <a href="#profile" className="hover:text-primary transition">Profile</a>
+            <a href="#home" className="hover:text-primary transition">Homepage</a>
             <a href="#projects" className="hover:text-primary transition">Projects</a>
-            <a href="#stack" className="hover:text-primary transition">Tech Stack</a>
+            <a href="#about" className="hover:text-primary transition">About Me</a>
             <a href="#contact" className="hover:text-primary transition">Contact</a>
           </ul>
 
@@ -25,9 +25,9 @@ export default function Navbar() {
             onClick={() => setOpen(true)}
             className="md:hidden p-2 focus:outline-none"
           >
-            <div className="w-6 h-0.5 bg-black mb-[5px] rounded"></div>
-            <div className="w-6 h-0.5 bg-black mb-[5px] rounded"></div>
-            <div className="w-6 h-0.5 bg-black rounded"></div>
+            <div className="w-6 h-0.5 bg-white mb-[5px] rounded"></div>
+            <div className="w-6 h-0.5 bg-white mb-[5px] rounded"></div>
+            <div className="w-6 h-0.5 bg-white rounded"></div>
           </button>
         </div>
       </nav>
@@ -43,12 +43,12 @@ export default function Navbar() {
       {/* MOBILE MENU PANEL */}
       <div
         className={`fixed top-0 right-0 h-full w-[75%] max-w-[300px] 
-          bg-white backdrop-blur-xl shadow-xl z-60
+          bg-[#0B1C2D] backdrop-blur-xl shadow-xl z-60
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        <div className="p-6 flex flex-col gap-8 text-lg font-manrope">
+        <div className="p-6 flex flex-col gap-8 text-lg font-manrope text-white">
 
           {/* Close button */}
           <button
@@ -59,11 +59,11 @@ export default function Navbar() {
           </button>
 
           <a
-            href="#profile"
+            href="#home"
             className="hover:text-primary transition"
             onClick={() => setOpen(false)}
           >
-            Profile
+            Homepage
           </a>
 
           <a
@@ -75,11 +75,11 @@ export default function Navbar() {
           </a>
 
           <a
-            href="#stack"
+            href="#about"
             className="hover:text-primary transition"
             onClick={() => setOpen(false)}
           >
-            Tech Stack
+            About Me
           </a>
 
           <a

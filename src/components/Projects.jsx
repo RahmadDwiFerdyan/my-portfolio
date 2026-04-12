@@ -42,15 +42,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section
-      id="projects"
-      className="
-        relative 
-        pt-12 pb-12 
-        overflow-hidden 
-        bg-[linear-gradient(to_top,white,rgba(255,255,255,0)_40%)]
-      "
-    >
+    <section id="projects">
       <div className="max-w-7xl mx-auto px-10 md:px-6">
 
         {/* TITLE WITH UNDERLINE ANIMATION */}

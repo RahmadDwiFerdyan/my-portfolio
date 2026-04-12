@@ -16,28 +16,19 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
         className="
           overflow-hidden
           min-h-0
-          bg-white/30
-          rounded-2xl border border-black/10
+          bg-white/10
+          rounded-2xl border border-white/10
           shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all
-          group relative duration-500 project-reveal
-          md:min-h-[520px] md:hover:shadow-[0_10px_50px_rgba(123,97,255,0.25)] md:hover:-translate-y-3 md:hover:scale-[1.015]
+          group relative duration-300 project-reveal flex flex-col
+          md:min-h-[520px] md:hover:-translate-y-1 md:hover:scale-[1.01]
         "
       >
-        {/* Glow */}
-        <div
-          className="
-            bg-linear-to-br from-primary/10 to-secondary/10
-            opacity-0
-            absolute inset-0 transition duration-500 blur-3xl
-            md:group-hover:opacity-20
-          "
-        />
-
         <div
           className="
             z-10
             p-5
             relative
+            flex flex-1 flex-col
           "
         >
           {/* Thumbnail */}
@@ -55,8 +46,6 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
                 object-cover
                 w-full h-60
                 rounded-xl
-                transition-transform
-                duration-500 group-hover:scale-105
               "
             />
           </div>
@@ -65,7 +54,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           <h3
             className="
               mt-5
-              text-2xl font-sora font-semibold text-gray-800
+              text-2xl font-sora font-semibold text-white
               transition
               md:group-hover:text-primary
             "
@@ -77,7 +66,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           <div
             className={`
               mt-2
-              text-gray-600 text-md leading-relaxed font-manrope
+              text-white text-md leading-relaxed font-manrope
               transition-all
               duration-300
               md:block
@@ -87,74 +76,59 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
             {project.description}
           </div>
 
-          {/* TECH STACK */}
-          <div
-            className={`
-              flex flex-wrap
-              mt-4
-              transition-all
-              gap-2 duration-300
-              md:flex
-              ${expanded ? "flex" : "hidden"}
-            `}
-          >
-            {project.tech?.map((t, i) => (
-              <span
-                key={i}
-                className="
-                  px-3 py-1
-                  text-md text-gray-600 font-medium font-manrope
-                  bg-white/60
-                  rounded-full border border-black/10
-                  backdrop-blur-sm
-                "
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <div className="mt-auto">
+            {/* SEE MORE */}
+            <div
+              className={`
+                flex items-center justify-between
+                mt-4
+                transition-all
+                duration-300
+                md:flex
+                ${expanded ? "flex" : "hidden"}
+              `}
+            >
+              <span className="text-md font-semibold font-manrope text-primary">See more</span>
 
-          {/* ACTIONS — MOBILE ONLY */}
-          <div
-            className="
-              flex
-              mt-5
-              items-center justify-between
-              md:hidden
-            "
-          >
-            {/* EXPAND / COLLAPSE */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setExpanded(!expanded);
-              }}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-5 h-5 text-primary"
+                aria-hidden="true"
+              >
+                <path d="M14 3h7v7" />
+                <path d="M10 14L21 3" />
+                <path d="M21 14v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6" />
+              </svg>
+            </div>
+
+            {/* ACTIONS — MOBILE ONLY */}
+            <div
               className="
-                text-sm font-semibold font-manrope text-primary
+                flex
+                mt-5
+                items-center justify-between
+                md:hidden
               "
             >
-              {expanded ? "Hide details" : "Show details"}
-            </button>
-
-            {/* SEE MORE — ONLY WHEN EXPANDED */}
-            {expanded && (
-              <Link
-                to={`/project/${project.id}`}
-                onClick={(e) => e.stopPropagation()}
+              {/* EXPAND / COLLAPSE */}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setExpanded(!expanded);
+                }}
                 className="
-                  inline-flex
-                  px-4 py-2
-                  text-white text-sm font-semibold font-manrope
-                  bg-primary
-                  rounded-full border border-primary/40
-                  transition-all
-                  items-center gap-2 backdrop-blur-sm duration-300 active:scale-[0.96]
+                  text-sm font-semibold font-manrope text-primary
                 "
               >
-                See more →
-              </Link>
-            )}
+                {expanded ? "Hide details" : "Show details"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
