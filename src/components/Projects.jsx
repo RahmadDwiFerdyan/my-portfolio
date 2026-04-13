@@ -42,8 +42,8 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects">
-      <div className="max-w-7xl mt-12 mx-auto px-10 md:px-6">
+    <section id="projects" className="relative py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-6">
 
         {/* TITLE WITH UNDERLINE ANIMATION */}
         <h2
@@ -51,7 +51,7 @@ export default function Projects() {
           className="
             category-title 
             block mx-auto text-center 
-            text-4xl font-sora font-bold 
+            text-3xl md:text-4xl font-sora font-bold 
             mb-12
           "
         >

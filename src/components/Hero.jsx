@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden pt-28 md:pt-0"
+      className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden pt-32 md:pt-36"
     >
 
       <div className="
@@ -37,7 +37,7 @@ export default function Hero() {
 
         {/* Text content */}
         <div className="max-w-2xl animate-fadeUp text-center md:text-left">
-          <p className="text-md text-white mb-4">Website & Mobile App Developer</p>
+          <p className="text-md text-white mb-4">UI/UX Designer</p>
           <h1 className="text-5xl md:text-6xl text-white font-sora font-bold leading-tight">
             Hello there, I’m{" "}
             <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text
@@ -48,9 +48,8 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 text-white font-manrope leading-relaxed text-lg">
-            I am a passionate Website and Mobile App Developer who delivers high-quality,
-            reliable solutions by combining strong problem-solving with UI/UX principles
-            to create intuitive and meaningful experiences.
+            I am a UI/UX Designer who focuses on solving real problems through thoughtful design. 
+            I create intuitive and meaningful digital experiences by combining user-centered thinking with clear and practical solutions.
           </p>
 
           {/* Social Icons */}

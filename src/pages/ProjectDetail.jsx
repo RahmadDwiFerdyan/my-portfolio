@@ -17,6 +17,12 @@ export default function ProjectDetail() {
 
 function ProjectDetailInner({ id, navigate }) {
     const SCROLL_OFFSET = 96;
+    const [isPageVisible, setIsPageVisible] = useState(false);
+    const [isLanguageSwitching, setIsLanguageSwitching] = useState(false);
+    const [languageToast, setLanguageToast] = useState("");
+    const switchTimerRef = useRef(null);
+    const toastTimerRef = useRef(null);
+
     const [language, setLanguage] = useState(() => {
         try {   
             return window.localStorage.getItem("projectDetailLanguage") || "en";
@@ -120,6 +126,13 @@ function ProjectDetailInner({ id, navigate }) {
     };
 
     const setAndStoreLanguage = (nextLanguage) => {
+        if (nextLanguage === language) return;
+
+        if (switchTimerRef.current) window.clearTimeout(switchTimerRef.current);
+        if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
+
+        setIsLanguageSwitching(true);
+        setLanguageToast("");
         setLanguage(nextLanguage);
         try {
             window.localStorage.setItem("projectDetailLanguage", nextLanguage);
@@ -127,6 +140,15 @@ function ProjectDetailInner({ id, navigate }) {
             // ignore
         }
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+        switchTimerRef.current = window.setTimeout(() => {
+            setIsLanguageSwitching(false);
+            setLanguageToast(nextLanguage === "id" ? "Bahasa berhasil diubah ke Indonesia" : "Language switched to English");
+
+            toastTimerRef.current = window.setTimeout(() => {
+                setLanguageToast("");
+            }, 1600);
+        }, 320);
     };
 
     const { sections, headingIds } = useMemo(() => {
@@ -176,6 +198,21 @@ function ProjectDetailInner({ id, navigate }) {
     useEffect(() => {
         // Always start from the top when opening a project detail.
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+        const rafId = window.requestAnimationFrame(() => {
+            setIsPageVisible(true);
+        });
+
+        return () => {
+            window.cancelAnimationFrame(rafId);
+        };
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            if (switchTimerRef.current) window.clearTimeout(switchTimerRef.current);
+            if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
+        };
     }, []);
 
     useEffect(() => {
@@ -267,6 +304,18 @@ function ProjectDetailInner({ id, navigate }) {
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     };
 
+    const figmaLink = useMemo(() => {
+        if (!project?.links?.length) return null;
+
+        return (
+            project.links.find((link) => {
+                const label = (link?.label || "").toLowerCase();
+                const url = (link?.url || "").toLowerCase();
+                return label.includes("figma") || url.includes("figma.com");
+            }) || null
+        );
+    }, [project]);
+
     const handleBackToHome = () => {
         const last = sessionStorage.getItem("lastHomeSection") || "#projects";
         const lastScrollY = sessionStorage.getItem("lastHomeScrollY");
@@ -287,7 +336,11 @@ function ProjectDetailInner({ id, navigate }) {
     }
 
     return (
-        <section className="pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left">
+        <section
+            className={`pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left transition-all duration-500 ${
+                isPageVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+        >
             <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
                 {/* LEFT STICKY MENU */}
                 <aside className="md:col-span-4 lg:col-span-3 md:sticky md:top-28 self-start">
@@ -296,7 +349,7 @@ function ProjectDetailInner({ id, navigate }) {
                             <button
                                 type="button"
                                 onClick={handleBackToHome}
-                                className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-manrope font-semibold text-white/80 hover:border-white/20 hover:bg-white/10 hover:text-primary transition"
+                                className="inline-flex items-center gap-2.5 rounded-xl border border-rose-400/35 bg-rose-500/25 px-4 py-2 text-sm font-manrope font-bold text-rose-200  transition hover:-translate-y-0.5 hover:border-rose-300/60 hover:bg-rose-500/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300/70"
                             >
                                 <span aria-hidden="true">←</span>
                                 Back
@@ -378,12 +431,33 @@ function ProjectDetailInner({ id, navigate }) {
                                     );
                                 })}
                             </nav>
+
+                            {figmaLink ? (
+                                <a
+                                    href={figmaLink.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-rose-400/35 bg-rose-500/10 px-3 py-2 text-sm font-semibold text-rose-200 transition hover:-translate-y-0.5 hover:border-rose-300/60 hover:bg-rose-500/20 hover:text-white"
+                                >
+                                    <img src="/icons/figma.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0" />
+                                    Open Figma File
+                                </a>
+                            ) : null}
                         </div>
                     </div>
                 </aside>
 
                 {/* RIGHT CONTENT */}
-                <div className="md:col-span-8 lg:col-span-9">
+                <div className="relative md:col-span-8 lg:col-span-9">
+                    {isLanguageSwitching ? (
+                        <div className="pointer-events-none absolute inset-0 z-20 flex items-start justify-center pt-8">
+                            <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-[#0B1C2D]/85 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-md">
+                                <span className="h-4 w-4 rounded-full border-2 border-primary/40 border-t-primary animate-spin" aria-hidden="true" />
+                                Updating language...
+                            </div>
+                        </div>
+                    ) : null}
+
                     {/* SECTIONS */}
                     <div className="mt-8 space-y-12">
                         {markdown ? (
@@ -574,43 +648,7 @@ function ProjectDetailInner({ id, navigate }) {
                     </div>
 
                     {/* LINKS */}
-                    {project.links?.length ? (
-                        <div className="mt-16 flex flex-wrap gap-4 text-lg justify-start">
-                            {project.links.map((link, i) => (
-                                <a
-                                    key={i}
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="
-                                        group
-                                        flex items-center gap-3 
-                                        px-5 py-2.5 rounded-full
-                                        border border-primary/40 
-                                        text-primary font-base font-manrope text-md
-
-                                        bg-white/40 backdrop-blur-sm
-
-                                        transition-all duration-300
-
-                                        hover:border-primary hover:bg-primary/5
-                                        hover:-translate-y-1 active:scale-[0.98]
-                                    "
-                                >
-                                    {link.icon && (
-                                        <img
-                                            src={link.icon}
-                                            className="w-5 h-5 object-contain transition-transform duration-300"
-                                            alt=""
-                                        />
-                                    )}
-                                    <span className="transition-colors duration-300 group-hover:text-primary">
-                                        {link.label}
-                                    </span>
-                                </a>
-                            ))}
-                        </div>
-                    ) : null}
+                   
                 </div>
             </div>
 
@@ -623,6 +661,12 @@ function ProjectDetailInner({ id, navigate }) {
                 >
                     ↑ Back to Top
                 </button>
+            ) : null}
+
+            {languageToast ? (
+                <div className="fixed left-1/2 bottom-6 z-40 -translate-x-1/2 rounded-full border border-primary/35 bg-[#102338]/90 px-5 py-2 text-sm font-semibold text-primary shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                    {languageToast}
+                </div>
             ) : null}
         </section>
     );

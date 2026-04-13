@@ -3,10 +3,28 @@ import { useState } from "react";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const scrollToSection = (id) => (e) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (!target) {
+      setOpen(false);
+      return;
+    }
+
+    const nav = document.querySelector("nav");
+    const navHeight = nav?.offsetHeight ?? 0;
+    const extraOffset = 4;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - extraOffset;
+
+    window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+    window.history.replaceState(null, "", `#${id}`);
+    setOpen(false);
+  };
+
   return (
     <>
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0B1C2D] backdrop-blur-md shadow-md shadow-black/30">
+      <nav className="fixed top-0 w-full z-50 border-b border-white/8 bg-[#0B1C2D]/95 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
         <div className="max-w-6xl mx-auto flex items-center justify-between py-6 px-6">
           <h1 className="font-sora text-lg font-semibold">
             Ferdy's Portfolio
@@ -14,10 +32,10 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8 font-manrope">
-            <a href="#home" className="hover:text-primary transition">Homepage</a>
-            <a href="#projects" className="hover:text-primary transition">Projects</a>
-            <a href="#about" className="hover:text-primary transition">About Me</a>
-            <a href="#contact" className="hover:text-primary transition">Contact</a>
+            <a href="#home" className="hover:text-primary transition" onClick={scrollToSection("home")}>Homepage</a>
+            <a href="#projects" className="hover:text-primary transition" onClick={scrollToSection("projects")}>Projects</a>
+            <a href="#about" className="hover:text-primary transition" onClick={scrollToSection("about")}>About Me</a>
+            <a href="#contact" className="hover:text-primary transition" onClick={scrollToSection("contact")}>Contact</a>
           </ul>
 
           {/* Hamburger button */}
@@ -61,7 +79,7 @@ export default function Navbar() {
           <a
             href="#home"
             className="hover:text-primary transition"
-            onClick={() => setOpen(false)}
+            onClick={scrollToSection("home")}
           >
             Homepage
           </a>
@@ -69,7 +87,7 @@ export default function Navbar() {
           <a
             href="#projects"
             className="hover:text-primary transition"
-            onClick={() => setOpen(false)}
+            onClick={scrollToSection("projects")}
           >
             Projects
           </a>
@@ -77,7 +95,7 @@ export default function Navbar() {
           <a
             href="#about"
             className="hover:text-primary transition"
-            onClick={() => setOpen(false)}
+            onClick={scrollToSection("about")}
           >
             About Me
           </a>
@@ -85,7 +103,7 @@ export default function Navbar() {
           <a
             href="#contact"
             className="hover:text-primary transition"
-            onClick={() => setOpen(false)}
+            onClick={scrollToSection("contact")}
           >
             Contact
           </a>
