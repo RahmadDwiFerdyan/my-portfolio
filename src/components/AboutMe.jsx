@@ -17,7 +17,7 @@ const CERTIFICATE_ITEMS = [
   {
     title: "Google UX Design Professional Certificate",
     meta: "Google | 2026",
-    href: "https://drive.google.com/file/d/1tiy0Q6qX2XJJqqJK58k8soJTgpataMgR/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1uwTPLaeMBXtLmzz_e0Uh8FNOi3Da1ZJn/view?usp=drive_link",
     logo: "icons/google.avif",
     logoAlt: "Google UX Design",
   },
