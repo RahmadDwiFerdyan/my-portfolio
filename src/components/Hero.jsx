@@ -38,7 +38,7 @@ export default function Hero() {
         {/* Text content */}
         <div className="max-w-2xl animate-fadeUp text-center md:text-left">
           <p className="text-md text-white mb-4">UI/UX Designer</p>
-          <h1 className="text-5xl md:text-6xl text-white font-sora font-bold leading-tight">
+          <h1 className="text-3xl md:text-6xl text-white font-sora font-bold leading-tight">
             Hello there, I’m{" "}
             <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text
                               hover:from-yellow-400 hover:to-orange-300 transition-colors duration-400">

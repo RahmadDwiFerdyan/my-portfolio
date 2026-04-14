@@ -20,7 +20,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           rounded-2xl border border-white/10
           shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all
           group relative duration-300 project-reveal flex flex-col
-          md:min-h-[520px] md:hover:-translate-y-1 md:hover:scale-[1.01]
+          md:min-h-[480px] md:hover:-translate-y-1 md:hover:scale-[1.01]
         "
       >
         <div

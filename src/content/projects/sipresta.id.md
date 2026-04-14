@@ -1,5 +1,5 @@
 ## Project Overview
-![Cover](/images/sipresta/sipresta-cover.png "w=360")
+![Cover](/images/sipresta/cover.png)
 
 SIPRESTA adalah sistem berbasis web yang dirancang untuk mencatat dan mengelola prestasi mahasiswa, khususnya di lingkungan jurusan TI. Sistem ini membantu pihak akademik dalam mengatur data prestasi dan menentukan mahasiswa berprestasi secara lebih terstruktur dan objektif.
 
@@ -68,10 +68,6 @@ Pengguna utama sistem ini adalah admin dan staff akademik.
 
 Persona ini membantu memastikan desain tidak hanya mempermudah pengelolaan data, tetapi juga mendukung proses pengambilan keputusan.
 
-### User Journey Map
-
-![journey map](/images/sipresta/journey-map.png)
-
 ## Requirements
 
 Untuk menerjemahkan insight menjadi keputusan desain yang bisa diterapkan, saya menentukan beberapa requirement utama.
@@ -90,7 +86,7 @@ Untuk menerjemahkan insight menjadi keputusan desain yang bisa diterapkan, saya 
 
 ## Design Process
 
-### Wireframes to Lo-Fi
+### Wireframes to Lo-Fi to Hi-Fi
 
 Pada tahap awal, saya mengeksplorasi:
 
@@ -98,17 +94,11 @@ Pada tahap awal, saya mengeksplorasi:
 - Menyusun form agar lebih terstruktur dan jelas  
 - Mengurangi kompleksitas tampilan  
 
-![lofi](/images/sipresta/sipresta-lofi.png)
-
-### Design Solution (Hi-Fi)
-
 Solusi akhir difokuskan pada kejelasan data, struktur yang rapi, dan efisiensi dalam penggunaan sistem.
-
-![hifi](/images/sipresta/sipresta-hifi.png)
 
 ### Core Features
 
-![showcase](/images/sipresta/sipresta-showcase.png)
+![showcase](/images/sipresta/showcase.png)
 
 | Feature | Description |
 |---|---|

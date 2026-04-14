@@ -16,14 +16,8 @@ export const projects = [
         title: "SIPRESTA",
         description:
         "A web-based system for recording, organizing, and monitoring student achievements. Make data management more efficient, transparent, and structured",
-        thumbnail: "/images/sipresta-cover.png",
+        thumbnail: "/images/sipresta/thumbnail.png",
         images: [
-            "/images/sipresta-1.png",
-            "/images/sipresta-5.png",
-            "/images/sipresta-4.png",
-            "/images/sipresta-3.png",
-            "/images/sipresta-2.png",
-            "/images/sipresta-6.png",
         ],
         tech: [
             "Laravel",
@@ -65,19 +59,14 @@ export const projects = [
     //     ]
     // },
     {
-        id: 4,
+        id: 3,
         slug: "pustaka-jti",
         title: "Pustaka JTI",
         description:
             "A digital platform for storing, managing, and sharing academic works, making research and project documentation accessible and well-organized",
-        thumbnail: "/images/pustaka-cover.png",
+        thumbnail: "/images/pustaka/cover.png",
         images: [
-            "/images/pustaka1.png",
-            "/images/pustaka6.png",
-            "/images/pustaka4.png",
-            "/images/pustaka3.png",
-            "/images/pustaka2.png",
-            "/images/pustaka5.png",
+
         ],
         tech: [
             "Figma",

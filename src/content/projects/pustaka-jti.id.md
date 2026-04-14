@@ -1,5 +1,5 @@
 ## Project Overview
-![Cover](/images/pustaka/pustaka-cover.png "w=360")
+![Cover](/images/pustaka/cover2.png)
 
 Pustaka JTI adalah platform repository berbasis web yang digunakan untuk menyimpan dan mengelola dokumen akademik di jurusan TI. Platform ini membantu mahasiswa dan staff mengakses dokumen dengan lebih rapi dan terstruktur.
 
@@ -65,10 +65,6 @@ Temuan utama:
 
 Persona ini membantu mengarahkan desain agar sesuai dengan kebutuhan pengguna.
 
-### User Journey Map
-
-![journey map](/images/pustaka/journey-map.png)
-
 ## Requirements
 
 Untuk menerjemahkan insight menjadi desain:
@@ -87,7 +83,7 @@ Untuk menerjemahkan insight menjadi desain:
 
 ## Design Process
 
-### Wireframes to Lo-Fi
+### Wireframes to Lo-Fi to Hi-Fi
 
 Pada tahap awal:
 
@@ -95,17 +91,13 @@ Pada tahap awal:
 - Menyederhanakan navigasi  
 - Mengurangi langkah akses  
 
-![lofi](/images/pustaka/pustaka-lofi.png)
-
-### Design Solution (Hi-Fi)
-
 Solusi difokuskan pada struktur dan kemudahan penggunaan.
 
-![hifi](/images/pustaka/pustaka-hifi.png)
+![lofi](/images/pustaka/lofi.png)
 
 ### Core Features
 
-![showcase](/images/pustaka/pustaka-showcase.png)
+![showcase](/images/pustaka/showcase.png)
 
 | Feature | Description |
 |---|---|

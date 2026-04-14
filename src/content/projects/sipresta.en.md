@@ -1,5 +1,5 @@
 ## Project Overview
-![Cover](/images/sipresta/sipresta-cover.png "w=360")
+![Cover](/images/sipresta/cover.png)
 
 SIPRESTA is a web-based system designed to record and manage student achievements, specifically within the IT department. The system helps academic staff organize achievement data and identify top-performing students through a more structured and objective approach.
 
@@ -68,10 +68,6 @@ Primary users of this system are admin and academic staff.
 
 These personas helped ensure that the system supports both data management and decision-making needs.
 
-### User Journey Map
-
-![journey map](/images/sipresta/journey-map.png)
-
 ## Requirements
 
 To translate insights into actionable design decisions, I defined the following requirements.
@@ -90,7 +86,7 @@ To translate insights into actionable design decisions, I defined the following 
 
 ## Design Process
 
-### Wireframes to Lo-Fi
+### Wireframes to Lo-Fi to Hi-Fi
 
 At the early stage, I explored:
 
@@ -98,17 +94,11 @@ At the early stage, I explored:
 - Structuring forms for better clarity  
 - Reducing complexity in the interface  
 
-![lofi](/images/sipresta/sipresta-lofi.png)
-
-### Design Solution (Hi-Fi)
-
 The final solution focuses on clarity, structure, and efficiency in handling achievement data.
-
-![hifi](/images/sipresta/sipresta-hifi.png)
 
 ### Core Features
 
-![showcase](/images/sipresta/sipresta-showcase.png)
+![showcase](/images/sipresta/showcase.png)
 
 | Feature | Description |
 |---|---|

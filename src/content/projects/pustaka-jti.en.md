@@ -1,5 +1,5 @@
 ## Project Overview
-![Cover](/images/pustaka-cover.png "w=540")
+![Cover](/images/pustaka/cover2.png)
 
 Pustaka JTI is a web-based repository platform designed to store and manage academic documents within the IT department. It helps students and staff access resources in a more organized and structured way.
 
@@ -67,9 +67,6 @@ Primary users:
 
 Persona ini membantu mengarahkan keputusan desain agar lebih fokus pada kebutuhan nyata pengguna.
 
-### User Journey Map
-
-![journey map](/images/pustaka/journey-map.png)
 
 ## Requirements
 
@@ -89,7 +86,7 @@ To translate insights into design decisions, I defined key requirements.
 
 ## Design Process
 
-### Wireframes to Lo-Fi
+### Wireframes to Lo-Fi to Hi-Fi
 
 At the early stage, I explored:
 
@@ -97,17 +94,14 @@ At the early stage, I explored:
 - Simplifying navigation  
 - Reducing steps to access documents  
 
-![lofi](/images/pustaka/pustaka-lofi.png)
-
-### Design Solution (Hi-Fi)
-
 The solution focuses on improving structure and usability.
 
-![hifi](/images/pustaka/pustaka-hifi.png)
+![lofi](/images/pustaka/lofi.png)
+
 
 ### Core Features
 
-![showcase](/images/pustaka/pustaka-showcase.png)
+![showcase](/images/pustaka/showcase.png)
 
 | Feature | Description |
 |---|---|

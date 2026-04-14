@@ -23,13 +23,7 @@ function ProjectDetailInner({ id, navigate }) {
     const switchTimerRef = useRef(null);
     const toastTimerRef = useRef(null);
 
-    const [language, setLanguage] = useState(() => {
-        try {   
-            return window.localStorage.getItem("projectDetailLanguage") || "en";
-        } catch {
-            return "id";
-        }
-    });
+    const [language, setLanguage] = useState("en");
     const project = projects.find((p) => p.id == id);
 
     const markdown = useMemo(() => {
@@ -134,11 +128,6 @@ function ProjectDetailInner({ id, navigate }) {
         setIsLanguageSwitching(true);
         setLanguageToast("");
         setLanguage(nextLanguage);
-        try {
-            window.localStorage.setItem("projectDetailLanguage", nextLanguage);
-        } catch {
-            // ignore
-        }
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
         switchTimerRef.current = window.setTimeout(() => {
@@ -337,8 +326,8 @@ function ProjectDetailInner({ id, navigate }) {
 
     return (
         <section
-            className={`pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left transition-all duration-500 ${
-                isPageVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left transition-opacity duration-500 ${
+                isPageVisible ? "opacity-100" : "opacity-0"
             }`}
         >
             <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
@@ -587,7 +576,7 @@ function ProjectDetailInner({ id, navigate }) {
                                                             {...props}
                                                             title={cleanTitle || undefined}
                                                             loading="lazy"
-                                                            className="w-full cursor-zoom-in rounded-2xl border border-white/10 bg-white/5"
+                                                            className="w-full cursor-zoom-in rounded-xl"
                                                             alt={props.alt || ""}
                                                         />
                                                     </a>
@@ -596,7 +585,7 @@ function ProjectDetailInner({ id, navigate }) {
                                                         {...props}
                                                         title={cleanTitle || undefined}
                                                         loading="lazy"
-                                                        className={widthValue ? "mt-0 mx-auto w-full rounded-2xl border border-white/10 bg-white/5" : "mt-6 w-full rounded-2xl border border-white/10 bg-white/5"}
+                                                        className={widthValue ? "mt-0 mx-auto w-full rounded-xl" : "mt-6 w-full rounded-2xl"}
                                                         style={wrapperStyle}
                                                         alt={props.alt || ""}
                                                     />
