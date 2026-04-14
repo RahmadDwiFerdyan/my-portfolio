@@ -20,7 +20,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           rounded-2xl border border-white/10
           shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all
           group relative duration-300 project-reveal flex flex-col
-          md:min-h-[480px] md:hover:-translate-y-1 md:hover:scale-[1.01]
+          md:min-h-[480px] md:hover:-translate-y-1 md:hover:scale-[1.05] md:hover:border-secondary
         "
       >
         <div
@@ -85,6 +85,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
                 transition-all
                 duration-300
                 md:flex
+                
                 ${expanded ? "flex" : "hidden"}
               `}
             >
@@ -97,7 +98,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="w-5 h-5 text-primary"
+                className="w-5 h-5 text-primary "
                 aria-hidden="true"
               >
                 <path d="M14 3h7v7" />

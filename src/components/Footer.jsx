@@ -69,7 +69,7 @@ export default function Footer() {
                 <p className="font-sora text-lg font-semibold text-white">{item.label}</p>
               </div>
 
-              <p className="mt-3 text-sm md:text-base text-white/75 break-words group-hover:text-white/90 transition">
+              <p className="mt-3 text-sm md:text-base text-white/75 wrap-break-word group-hover:text-white/90 transition">
                 {item.value}
               </p>
             </a>
