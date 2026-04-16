@@ -26,9 +26,13 @@ export default function Navbar() {
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/8 bg-[#0B1C2D]/95 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
         <div className="max-w-6xl mx-auto flex items-center justify-between py-6 px-6">
-          <h1 className="font-sora text-lg font-semibold hover:transition-all duration-200 hover:-translate-y-[0.5px] hover:scale-[1.1]">
-            Ferdy's Portfolio
-          </h1>
+          <div className="relative inline-flex items-center group">
+            <img
+              src="/images/portfolio.png"
+              alt="Ferdy's Portfolio"
+              className="relative z-10 md:h-5 h-4 w-auto transition-all duration-200 hover:flip"
+            />
+          </div>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-8 font-manrope">

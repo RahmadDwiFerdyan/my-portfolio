@@ -40,9 +40,13 @@ export default function Hero() {
           <p className="text-md text-white mb-4">UI/UX Designer</p>
           <h1 className="text-3xl md:text-6xl text-white font-sora font-bold leading-tight">
             Hello there, I’m{" "}
-            <span className="bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text
-                              hover:from-yellow-400 hover:to-orange-300 transition-colors duration-400">
-              Rahmad Dwi Ferdyan
+            <span className="hero-name-swap group relative inline-grid align-baseline whitespace-nowrap">
+              <span className="hero-name-main col-start-1 row-start-1 bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text">
+                Rahmad Dwi Ferdyan
+              </span>
+              <span className="hero-name-alt col-start-1 row-start-1 bg-linear-to-r from-yellow-400 to-orange-300 text-transparent bg-clip-text">
+                ... just call me, Ferdy!
+              </span>
             </span>
 
           </h1>
