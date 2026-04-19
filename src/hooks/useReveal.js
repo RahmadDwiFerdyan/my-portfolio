@@ -5,8 +5,15 @@ export default function useReveal() {
   const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.2 }
     );
 

@@ -1,7 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const NAV_LINKS = [
+  { id: "home", label: "Homepage", targetId: "home" },
+  { id: "about", label: "About Me", targetId: "about" },
+  { id: "projects", label: "Projects", targetId: "projects" },
+  { id: "highlights", label: "Highlights", targetId: "highlights" },
+  { id: "contact", label: "Contact", targetId: "contact" },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isDetached, setIsDetached] = useState(false);
+
+  useEffect(() => {
+    const updateNavbarMode = () => {
+      if (window.innerWidth < 768) {
+        setIsDetached(false);
+        return;
+      }
+
+      const hero = document.getElementById("hero");
+      if (!hero) {
+        setIsDetached(window.scrollY > 180);
+        return;
+      }
+
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      setIsDetached(heroBottom <= 96);
+    };
+
+    updateNavbarMode();
+    window.addEventListener("scroll", updateNavbarMode, { passive: true });
+    window.addEventListener("resize", updateNavbarMode);
+
+    return () => {
+      window.removeEventListener("scroll", updateNavbarMode);
+      window.removeEventListener("resize", updateNavbarMode);
+    };
+  }, []);
 
   const scrollToSection = (id) => (e) => {
     e.preventDefault();
@@ -23,33 +59,57 @@ export default function Navbar() {
 
   return (
     <>
+      
+
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/8 bg-[#0B1C2D]/95 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
-        <div className="max-w-6xl mx-auto flex items-center justify-between py-6 px-6">
-          <div className="relative inline-flex items-center group">
+      <nav
+        className={`fixed left-1/2 z-50 w-[calc(100%)] max-w-4xl -translate-x-1/2 bg-[#0B1C2D]/90 backdrop-blur-sm transition-[top,border-radius,padding,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:w-[calc(100%-1.5rem)] ${
+          isDetached
+            ? "top-4 rounded-4xl border border-white/14 max-w-2xl px-18 py-3 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+            : "top-0 rounded-b-4xl md:bg-white/2 bg-[#0B1C2D]/90 border-x border-b border-white/14 px-6 md:px-20 py-4 shadow-md"
+        }`}
+      >
+        <span
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0.5 -z-10 bg-linear-to-r from-primary/10 via-white/8 to-secondary/10 blur-xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isDetached ? "rounded-full opacity-40" : "rounded-b-[1.6rem] opacity-55"
+          }`}
+        />
+        <div className="mx-auto flex items-center justify-between gap-4">
+          <div className="pl-4 relative inline-flex items-center shrink-0">
             <img
               src="/images/portfolio.png"
               alt="Ferdy's Portfolio"
-              className="relative z-10 md:h-5 h-4 w-auto transition-all duration-200 hover:flip"
+              className="h-4 w-auto md:h-5"
             />
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex gap-8 font-manrope">
-            <a href="#home" className="hover:text-primary transition" onClick={scrollToSection("home")}>Homepage</a>
-            <a href="#projects" className="hover:text-primary transition" onClick={scrollToSection("projects")}>Projects</a>
-            <a href="#about" className="hover:text-primary transition" onClick={scrollToSection("about")}>About Me</a>
-            <a href="#contact" className="hover:text-primary transition" onClick={scrollToSection("contact")}>Contact</a>
+          <ul className="hidden md:flex items-center gap-0.5 font-manrope text-[16px] font-medium">
+            {NAV_LINKS.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.targetId}`}
+                  className="inline-flex rounded-full px-4 py-2 text-white/85 transition hover:bg-white/8 hover:text-primary"
+                  onClick={scrollToSection(item.targetId)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
 
           {/* Hamburger button */}
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden p-2 focus:outline-none"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white/80 transition hover:bg-white/10 hover:text-white focus:outline-none md:hidden"
+            aria-label="Open navigation menu"
           >
-            <div className="w-6 h-0.5 bg-white mb-[5px] rounded"></div>
-            <div className="w-6 h-0.5 bg-white mb-[5px] rounded"></div>
-            <div className="w-6 h-0.5 bg-white rounded"></div>
+            <div className="flex flex-col gap-1">
+              <div className="h-0.5 w-4 rounded-full bg-current"></div>
+              <div className="h-0.5 w-4 rounded-full bg-current"></div>
+              <div className="h-0.5 w-4 rounded-full bg-current"></div>
+            </div>
           </button>
         </div>
       </nav>
@@ -65,52 +125,33 @@ export default function Navbar() {
       {/* MOBILE MENU PANEL */}
       <div
         className={`fixed top-0 right-0 h-full w-[75%] max-w-[300px] 
-          bg-[#0B1C2D] backdrop-blur-xl shadow-xl z-60
+          border-l border-white/10 bg-[#0B1C2D]/96 backdrop-blur-xl shadow-xl z-60
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        <div className="p-6 flex flex-col gap-8 text-lg font-manrope text-white">
+        <div className="flex flex-col gap-8 p-6 text-lg font-manrope text-white">
 
           {/* Close button */}
           <button
             onClick={() => setOpen(false)}
-            className="self-end text-3xl font-light hover:text-primary transition"
+            className="self-end rounded-full px-3 py-1 text-2xl font-light text-white/60 transition hover:text-white"
           >
             &times;
           </button>
 
-          <a
-            href="#home"
-            className="hover:text-primary transition"
-            onClick={scrollToSection("home")}
-          >
-            Homepage
-          </a>
-
-          <a
-            href="#projects"
-            className="hover:text-primary transition"
-            onClick={scrollToSection("projects")}
-          >
-            Projects
-          </a>
-
-          <a
-            href="#about"
-            className="hover:text-primary transition"
-            onClick={scrollToSection("about")}
-          >
-            About Me
-          </a>
-
-          <a
-            href="#contact"
-            className="hover:text-primary transition"
-            onClick={scrollToSection("contact")}
-          >
-            Contact
-          </a>
+          <div className="flex flex-col gap-2">
+            {NAV_LINKS.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.targetId}`}
+                className="rounded-xl bg-white/5 px-4 py-3 text-white/80 transition hover:bg-white/10 hover:text-white"
+                onClick={scrollToSection(item.targetId)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </>

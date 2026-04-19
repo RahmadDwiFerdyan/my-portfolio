@@ -8,11 +8,21 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
+    min-height: 100%;
   }
 
   body {
     font-family: var(--font-manrope);
-    background: #0B1C2D;
+    min-height: 100vh;
+    background-color: #0B1C2D;
+    background-image: linear-gradient(
+      180deg,
+      #0B1C2D 0%,
+      #0B1C2D 55%,
+      #0F253B 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     color: white;
   }
 }
@@ -150,6 +160,31 @@
   animation: fadeProject .9s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
+/* Highlight list text clamping on mobile (prevents overly tall cards) */
+.highlight-item-title,
+.highlight-item-meta {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.highlight-item-title {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.highlight-item-meta {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+@media (min-width: 640px) {
+  .highlight-item-title,
+  .highlight-item-meta {
+    display: block;
+    overflow: visible;
+  }
+}
 
 .glass:hover {
   box-shadow: 
@@ -176,6 +211,22 @@
   height: 100%;
   position: relative;
   border-radius: 24px;
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-photo-shell {
+  perspective: 1400px;
+}
+
+.about-photo-stage {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-photo-shell:hover .photo-scene {
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.22));
 }
 
 /* Back + front image layers */
@@ -186,6 +237,7 @@
   width: 100%;
   height: 100%;
   border-radius: 24px;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .photo-back {
@@ -197,6 +249,18 @@
 .photo-front {
   z-index: 20;
   object-fit: contain;
+}
+
+.about-photo-shell:hover .photo-back {
+  transform: translateZ(8px) scale(1.01);
+}
+
+.about-photo-shell:hover .photo-front {
+  transform: translateZ(16px) scale(1.02);
+}
+
+.about-photo-shell:hover .photo-stars {
+  transform: translateZ(12px);
 }
 
 /* Stars sit between back and front */
@@ -292,6 +356,14 @@
   animation: heroShimmer 1.8s linear infinite;
 }
 
+.hero-name-swap {
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-name-swap:hover {
+  transform: translateY(-2px);
+}
+
 @keyframes heroShimmer {
   0% {
     background-position: 0% 50%;
@@ -304,5 +376,153 @@
   100% {
     background-position: 0% 50%;
     filter: drop-shadow(0 0 0 rgba(58, 255, 158, 0));
+  }
+}
+
+@keyframes heroMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.hero-marquee--primary {
+  animation: heroMarquee 44s linear infinite;
+  opacity: 0.5;
+}
+
+.hero-marquee--wide {
+  padding-inline: 2rem;
+}
+
+.hero-marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  padding: 0.7rem 1.15rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-transition-wrap {
+  mask-image: linear-gradient(90deg, transparent 0%, black 9%, black 91%, transparent 100%);
+}
+
+.hero-stage {
+  transform: translateZ(0);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: -12% -8% auto;
+  height: 110%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.2;
+  transform: perspective(1100px) rotateX(66deg) translateY(18%);
+  transform-origin: center;
+  mask-image: radial-gradient(circle at 50% 38%, black 0%, black 32%, transparent 78%);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(24px);
+  opacity: 0.2;
+  mix-blend-mode: screen;
+}
+
+.hero-orb--one {
+  top: 8%;
+  left: 10%;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(58, 255, 158, 0.22) 0%, rgba(58, 255, 158, 0.1) 32%, transparent 72%);
+  animation: heroOrbFloat 14s ease-in-out infinite;
+}
+
+.hero-orb--two {
+  top: 18%;
+  right: 8%;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, rgba(143, 255, 199, 0.16) 0%, rgba(143, 255, 199, 0.08) 34%, transparent 72%);
+  animation: heroOrbFloat 18s ease-in-out infinite reverse;
+}
+
+.hero-halo {
+  position: absolute;
+  inset: auto 18% 10%;
+  height: 14rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(58, 255, 158, 0.12) 0%, rgba(58, 255, 158, 0.06) 26%, transparent 72%);
+  filter: blur(18px);
+  opacity: 0.75;
+}
+
+.hero-star {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.4));
+  clip-path: polygon(50% 0%, 61% 34%, 100% 50%, 61% 66%, 50% 100%, 39% 66%, 0% 50%, 39% 34%);
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.25),
+    0 0 24px rgba(58, 255, 158, 0.22);
+  animation-name: heroStarFloat, heroStarPulse;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+@keyframes heroOrbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12px, -18px, 0) scale(1.08);
+  }
+}
+
+@keyframes heroStarFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(var(--hero-star-dx, 10px), var(--hero-star-dy, -10px), 0) scale(1.18);
+  }
+}
+
+@keyframes heroStarPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb,
+  .hero-star {
+    animation: none !important;
   }
 }

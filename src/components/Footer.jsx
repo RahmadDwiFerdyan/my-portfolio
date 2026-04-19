@@ -44,7 +44,7 @@ export default function Footer() {
     <footer
       id="contact"
       ref={sectionRef}
-      className={`relative py-14 md:py-20 text-white font-manrope project-reveal ${sectionVisible ? "show" : ""}`}
+      className={`relative py-14 md:pb-50 md:pt-20 text-white font-manrope project-reveal ${sectionVisible ? "show" : ""}`}
     >
       <div className="mx-auto max-w-5xl px-6">
         <h3 className="font-sora text-3xl md:text-4xl font-bold text-white text-center">Let's Connect</h3>

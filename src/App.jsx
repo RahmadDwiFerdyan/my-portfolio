@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Projects from "./components/Projects";
 import AboutMe from "./components/AboutMe";
+import Projects from "./components/Projects";
+import Highlights from "./components/Dashboard";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -41,7 +42,7 @@ export default function App() {
 
   useEffect(() => {
     const SECTION_OFFSET = 140;
-    const sectionIds = ["home", "projects", "about", "contact"];
+    const sectionIds = ["home", "about", "projects", "highlights", "contact"];
     let rafId = 0;
 
     const computeLastSection = () => {
@@ -114,8 +115,9 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Projects />
         <AboutMe />
+        <Projects />
+        <Highlights />
       </main>
       <Footer />
     </div>
