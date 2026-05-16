@@ -71,21 +71,25 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6 pb-10 text-center animate-fadeUp md:pb-16">
-        <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary/90 shadow-[0_0_40px_rgba(58,255,158,0.08)] backdrop-blur-md">
-          {/* <span className="inline-block h-2 w-2 rounded-full bg-primary shadow-[0_0_16px_rgba(58,255,158,0.9)]" /> */}
-          UI/UX Designer
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-3 sm:gap-3 sm:flex-nowrap">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-sm font-semibold text-primary/90 shadow-[0_0_40px_rgba(58,255,158,0.08)] backdrop-blur-md sm:px-4 sm:py-2 sm:text-md">
+            Web Developer
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-sm font-semibold text-primary/90 shadow-[0_0_40px_rgba(58,255,158,0.08)] backdrop-blur-md sm:px-4 sm:py-2 sm:text-md">
+            System Analyst
+          </div>
         </div>
+
         <h1 className="text-3xl md:text-7xl text-white font-sora font-bold leading-tight">
           <span className="block">Hello there, I&apos;m</span>
           <span className="mt-3 inline-flex flex-col items-center gap-1 sm:inline-flex sm:flex-row sm:flex-nowrap sm:items-baseline sm:gap-4">
             {activeName.map((part, index) => (
               <span
                 key={`${nameIndex}-${part}`}
-                className={`block text-3xl md:text-7xl text-balance bg-linear-to-r text-transparent bg-clip-text animate-fadeUp ${
-                  nameIndex === 0
+                className={`block text-3xl md:text-7xl text-balance bg-linear-to-r text-transparent bg-clip-text animate-fadeUp ${nameIndex === 0
                     ? "from-primary to-secondary"
                     : "from-yellow-400 to-orange-300"
-                } ${index === 0 ? "sm:whitespace-nowrap" : "sm:whitespace-nowrap"}`}
+                  } ${index === 0 ? "sm:whitespace-nowrap" : "sm:whitespace-nowrap"}`}
                 style={{ animationDelay: `${index * 70}ms` }}
               >
                 {part}
@@ -95,8 +99,8 @@ export default function Hero() {
         </h1>
 
         <p className="mx-auto px-4 mt-6 max-w-2xl text-md md:text-lg leading-relaxed text-white/80 font-manrope">
-          I design digital experiences that feel clear, useful, and human.
-          I like turning messy problems into simple flows and thoughtful interfaces.
+          Building digital systems that balance functionality, structure, and usability.
+          Interested in workflow design, product design, system analysis, and web application development.
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -107,12 +111,12 @@ export default function Hero() {
             Explore Projects
           </a>
           <a
-            href="https://www.linkedin.com/in/rahmadferdyan"
+            href="/CV_Rahmad Dwi Ferdyan.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white/90 backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10"
           >
-            Connect on LinkedIn
+            View Resume (CV)
           </a>
         </div>
 

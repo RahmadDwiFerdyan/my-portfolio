@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -9,8 +9,25 @@ import Footer from "./components/Footer";
 
 export default function App() {
   const location = useLocation();
+  const [isHomeLoading, setIsHomeLoading] = useState(() => {
+    return sessionStorage.getItem("hasSeenHomeSplash") !== "true";
+  });
 
   useEffect(() => {
+    if (!isHomeLoading) return;
+
+    sessionStorage.setItem("hasSeenHomeSplash", "true");
+
+    const loadingTimer = window.setTimeout(() => {
+      setIsHomeLoading(false);
+    }, 2000);
+
+    return () => window.clearTimeout(loadingTimer);
+  }, [isHomeLoading]);
+
+  useEffect(() => {
+    if (isHomeLoading) return;
+
     const blobs = document.querySelectorAll(".blob-parallax");
 
     const handleMouseMove = (e) => {
@@ -38,9 +55,11 @@ export default function App() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isHomeLoading]);
 
   useEffect(() => {
+    if (isHomeLoading) return;
+
     const SECTION_OFFSET = 140;
     const sectionIds = ["home", "about", "projects", "highlights", "contact"];
     let rafId = 0;
@@ -77,9 +96,10 @@ export default function App() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [isHomeLoading]);
 
   useEffect(() => {
+    if (isHomeLoading) return;
     if (location.pathname !== "/") return;
 
     const pendingScrollY = sessionStorage.getItem("pendingHomeScrollY");
@@ -102,7 +122,23 @@ export default function App() {
 
     // Wait until the DOM is painted.
     requestAnimationFrame(() => requestAnimationFrame(scroll));
-  }, [location.pathname, location.hash]);
+  }, [isHomeLoading, location.pathname, location.hash]);
+
+  if (isHomeLoading) {
+    return (
+      <div className="home-loader" role="status" aria-label="Loading homepage">
+        <div className="home-loader__glow" aria-hidden="true" />
+        <img
+          src="/images/logo_ferdy.png"
+          alt="Ferdy logo"
+          className="home-loader__logo"
+        />
+        <div className="home-loader__bar" aria-hidden="true">
+          <span />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen">

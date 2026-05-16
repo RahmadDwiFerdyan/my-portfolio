@@ -15,20 +15,27 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
         ref={ref}
         className="
           overflow-hidden
-          min-h-0
+          h-auto md:h-[480px]
           bg-white/10
           rounded-2xl border border-white/10
           shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all
           group relative duration-300 project-reveal flex flex-col
-          md:min-h-[480px] md:hover:-translate-y-1 md:hover:scale-[1.05] md:hover:border-secondary
+          md:hover:-translate-y-1 md:hover:scale-[1.05] md:hover:border-secondary
         "
       >
+        {/* Category badge tucked inside the top edge */}
+        <div className="absolute left-0 top-0 z-20">
+          <span className="inline-flex w-max whitespace-nowrap items-center gap-2 rounded-br-2xl bg-primary px-4 py-1.5 text-sm font-semibold text-[#072012] shadow-[0_12px_28px_rgba(0,0,0,0.2)]">
+            {project.category || project.type || "Project"}
+          </span>
+        </div>
         <div
           className="
             z-10
             p-5
             relative
             flex flex-1 flex-col
+            overflow-hidden
           "
         >
           {/* Thumbnail */}
@@ -75,6 +82,20 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           >
             {project.description}
           </div>
+
+          {/* TECH STACK */}
+          {(project.tech || project.techStack || []).length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center justify-start gap-2 w-full">
+              {(project.tech || project.techStack || []).map((t) => (
+                <span
+                  key={t}
+                  className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-1 text-xs font-medium text-white/90"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="mt-auto">
             {/* SEE MORE */}

@@ -1,14 +1,5 @@
 export const DEFAULT_VISIBLE_ITEMS = 3;
 
-export const EXPERIENCE_ITEMS = [
-  {
-    title: "UI/UX Designer - EduKids",
-    meta: "Project Case Study",
-    summary: "Led user research, defined product goals, and crafted end-to-end learning flows for children and parents.",
-    images: ["images/edukids/edukids-cover.png", "images/edukids/edukids-hifi.png", "images/edukids/edukids1.gif"]
-  },
-];
-
 export const CERTIFICATE_ITEMS = [
   {
     title: "Google UX Design Professional Certificate",
@@ -33,7 +24,7 @@ export const CERTIFICATE_ITEMS = [
   },
 ];
 
-export const TECH_STACK_ITEMS = ["Figma Workspace", "Framer", "Notion", "Miro", "Laravel", "JavaScript", "React.js", "TailwindCSS", "Git & GitHub"];
+export const TECH_STACK_ITEMS = ["Laravel", "PHP", "HTML", "JavaScript", "Java", "React.js", "Node.js", "PostgreSQL", "MySQL", "SQL Server", "TailwindCSS", "Bootstrap", "Figma", "FigJam", "Miro", "Git", "GitHub"];
 
 export const ACHIEVEMENT_ITEMS = [
   {
@@ -70,13 +61,12 @@ export const ORGANIZATION_ITEMS = [
 ];
 
 export const SECTION_ITEMS = [
-  { id: "experience", label: "Experience", description: "Selected projects and hands-on roles." },
   { id: "tech-stack", label: "Tech Stack", description: "Tools and technologies I use actively." },
   { id: "certificates", label: "Certificates", description: "Credential links and completion records." },
   { id: "achievement", label: "Achievement", description: "Notable milestones and recognition." },
   {
     id: "organizational-volunteering",
-    label: "Organizational & Volunteering",
+    label: "Organization",
     mobileLabel: "Org & Vol.",
     description: "Community and team collaboration journey.",
   },

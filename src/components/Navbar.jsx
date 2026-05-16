@@ -63,10 +63,10 @@ export default function Navbar() {
 
       {/* NAVBAR */}
       <nav
-        className={`fixed left-1/2 z-50 w-[calc(100%)] max-w-4xl -translate-x-1/2 bg-[#0B1C2D]/90 backdrop-blur-sm transition-[top,border-radius,padding,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:w-[calc(100%-1.5rem)] ${
+        className={`fixed left-1/2 z-50 w-[calc(100%)] max-w-5xl -translate-x-1/2 bg-[#0B1C2D]/90 backdrop-blur-sm transition-[top,border-radius,padding,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:w-[calc(100%-1.5rem)] ${
           isDetached
-            ? "top-4 rounded-4xl border border-white/14 max-w-2xl px-18 py-3 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
-            : "top-0 rounded-b-4xl md:bg-white/2 bg-[#0B1C2D]/90 border-x border-b border-white/14 px-6 md:px-20 py-4 shadow-md"
+            ? "top-4 rounded-4xl border border-white/14 max-w-5xl px-8 py-3 shadow-[0_14px_34px_rgba(0,0,0,0.28)]"
+            : "top-0 rounded-b-4xl md:bg-white/2 bg-[#0B1C2D]/90 border-x border-b border-white/14 px-8 md:px-20 py-3 shadow-md"
         }`}
       >
         <span
@@ -98,6 +98,17 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
+          {isDetached && (
+            <a
+              href="/CV_Rahmad Dwi Ferdyan.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden shrink-0 items-center justify-center rounded-full border border-primary bg-white/10 px-5 py-2 text-sm font-semibold text-primary backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-black md:inline-flex"
+            >
+              View Resume (CV)
+            </a>
+          )}
 
           {/* Hamburger button */}
           <button

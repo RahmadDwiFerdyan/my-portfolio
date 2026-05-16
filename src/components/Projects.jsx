@@ -6,6 +6,7 @@ export default function Projects() {
   const cardRefs = useRef([]);
   const titleRef = useRef(null);   // <-- NEW
   const titleVisible = useRef(false);
+  const sortedProjects = [...projects].sort((a, b) => Number(a.id) - Number(b.id));
   
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Projects() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {projects.map((p, i) => (
+          {sortedProjects.map((p, i) => (
             <ProjectCard
               key={p.id}
               project={p}

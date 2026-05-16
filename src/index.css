@@ -53,6 +53,100 @@
   animation: fadeUp 0.8s ease-out both;
 }
 
+.home-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(58, 255, 158, 0.16), transparent 28rem),
+    linear-gradient(180deg, #0b1c2d 0%, #0f253b 100%);
+  animation: homeLoaderExit 420ms ease 2s forwards;
+}
+
+.home-loader__glow {
+  position: absolute;
+  width: min(62vw, 22rem);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: rgba(58, 255, 158, 0.12);
+  filter: blur(34px);
+  animation: homeLoaderGlow 1.4s ease-in-out infinite;
+}
+
+.home-loader__logo {
+  position: relative;
+  z-index: 1;
+  width: clamp(7rem, 32vw, 13rem);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.32));
+  animation: homeLoaderLogo 1.4s ease-in-out infinite;
+}
+
+.home-loader__bar {
+  position: relative;
+  z-index: 1;
+  width: clamp(9rem, 42vw, 16rem);
+  height: 0.35rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-loader__bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform-origin: left;
+  animation: homeLoaderBar 2.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes homeLoaderLogo {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.04);
+  }
+}
+
+@keyframes homeLoaderGlow {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes homeLoaderBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes homeLoaderExit {
+  to {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+
 .tech-card:hover {
   box-shadow: 0 8px 25px rgba(123, 97, 255, 0.15),
               0 4px 15px rgba(0, 224, 255, 0.10);

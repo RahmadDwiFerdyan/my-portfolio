@@ -3,8 +3,8 @@ import useReveal from "../hooks/useReveal";
 
 const FOCUS_ITEMS = [
   {
-    title: "UI Design",
-    description: "Crafting visual systems, clear hierarchy, and polished interfaces.",
+    title: "System Analysis",
+    description: "Analyzing workflows, user needs, and operational problems to build structured digital solutions.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-5 w-5">
         <rect x="3" y="4" width="18" height="16" rx="3" />
@@ -14,8 +14,8 @@ const FOCUS_ITEMS = [
     ),
   },
   {
-    title: "UX Research",
-    description: "Learning from users, testing assumptions, and shaping decisions with evidence.",
+    title: "Web Application Development",
+    description: "Developing responsive and functional web applications with robust and scalable system architecture.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-5 w-5">
         <path d="M10 10a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" />
@@ -25,8 +25,8 @@ const FOCUS_ITEMS = [
     ),
   },
   {
-    title: "Interaction Design",
-    description: "Designing behavior, flow, and feedback that feel natural and responsive.",
+    title: "Product Workflow",
+    description: "Transforming operational needs into efficient and intuitive digital experiences.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-5 w-5">
         <path d="M5 12h14" />
@@ -96,14 +96,14 @@ export default function AboutMe() {
           >
             About Me
           </h2>
-          <a
+          {/* <a
             href="/CV_Rahmad Dwi Ferdyan.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center self-start rounded-xl border border-primary/40 px-4 py-2 font-manrope font-semibold text-primary hover:border-primary hover:bg-primary/5 transition"
           >
             See my CV
-          </a>
+          </a> */}
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[380px_minmax(0,1fr)] items-start">
@@ -142,16 +142,16 @@ export default function AboutMe() {
               Rahmad Dwi Ferdyan
             </h3>
             <p className="mt-4 font-manrope leading-relaxed text-white/80">
-              I’m a UI/UX Designer focused on creating meaningful, user-centered experiences. 
-              I enjoy turning complex problems into simple, <span className="font-bold text-primary">intuitive solutions</span>. 
-              For me, design is not just about how it looks, but how it works and feels for the user.
+              I’m focused on building digital systems and web applications that are structured, functional, and user-focused.
+              I enjoy transforming complex workflows and operational problems into <span className="font-bold text-primary">efficient digital solutions</span>.
+              For me, a good system is not only about functionality, but also clarity, usability, and how well it supports user needs.
 
             </p>
-            <p className="mt-3 font-manrope leading-relaxed text-white/80">
+            {/* <p className="mt-3 font-manrope leading-relaxed text-white/80">
              I believe good design should be <span className="font-bold text-primary">inclusive and accessible</span>, working for people with diverse abilities and needs. 
              I focus on understanding real users, structuring information clearly, and creating experiences that are practical, 
              easy to use, and impactful.
-            </p>
+            </p> */}
 
             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {FOCUS_ITEMS.map((item) => (

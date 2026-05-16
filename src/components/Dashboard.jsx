@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import useReveal from "../hooks/useReveal";
 import {
   DEFAULT_VISIBLE_ITEMS,
-  EXPERIENCE_ITEMS,
   CERTIFICATE_ITEMS,
   TECH_STACK_ITEMS,
   ACHIEVEMENT_ITEMS,
@@ -466,12 +465,9 @@ function DetailModal({ item, onClose }) {
 
 export default function Highlights() {
   const [sectionRef, sectionVisible] = useReveal();
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const [selectedSectionId, setSelectedSectionId] = useState("all");
   const [detailItem, setDetailItem] = useState(null);
-
-  const visibleExperiences = showAllExperiences ? EXPERIENCE_ITEMS : EXPERIENCE_ITEMS.slice(0, DEFAULT_VISIBLE_ITEMS);
 
   const scrollToHighlightsTop = () => {
     const element = document.getElementById("highlights");
@@ -506,23 +502,6 @@ export default function Highlights() {
   }, []);
 
   const renderSection = (sectionId) => {
-    if (sectionId === "experience") {
-      return (
-        <>
-          <TextualList items={visibleExperiences} onOpenDetail={openDetail} showOpenLink={false} />
-          {EXPERIENCE_ITEMS.length > DEFAULT_VISIBLE_ITEMS ? (
-            <button
-              type="button"
-              onClick={() => setShowAllExperiences((prev) => !prev)}
-              className="mt-4 inline-flex rounded-xl border border-white/20 bg-white/5 px-4 py-2 font-manrope text-sm font-semibold text-white/85 transition hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
-            >
-              {showAllExperiences ? "Show less" : "See more"}
-            </button>
-          ) : null}
-        </>
-      );
-    }
-
     if (sectionId === "certificates") {
       return <CertificateList items={CERTIFICATE_ITEMS} showAll={showAllCertificates} setShowAll={setShowAllCertificates} />;
     }
