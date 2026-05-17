@@ -110,7 +110,7 @@ export default function Hero() {
             Explore Projects
           </a>
           <a
-            href="/CV_Rahmad Dwi Ferdyan.pdf"
+            href="/CV_Rahmad Dwi Ferdyan_New.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white/90 backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/10"
