@@ -6,12 +6,11 @@ const HERO_NAME_VARIANTS = [
 ];
 
 const HIGHLIGHT_BADGES = [
-  "UI Design",
-  "UX Research",
-  "Interaction Design",
-  "Design Systems",
-  "Accessibility",
-  "Product Thinking",
+  "Full-Stack Web Development",
+  "System Analysis",
+  "Database Design",
+  "UI/UX Design",
+  "System Design",
 ];
 
 const HERO_STARS = [
@@ -76,7 +75,7 @@ export default function Hero() {
             Web Developer
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-sm font-semibold text-primary/90 shadow-[0_0_40px_rgba(58,255,158,0.08)] backdrop-blur-md sm:px-4 sm:py-2 sm:text-md">
-            System Analyst
+            System Designer
           </div>
         </div>
 

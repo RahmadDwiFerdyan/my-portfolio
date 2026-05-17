@@ -73,7 +73,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
           <div
             className={`
               mt-2
-              text-white text-md leading-relaxed font-manrope
+              text-white text-sm leading-relaxed font-manrope
               transition-all
               duration-300
               md:block
@@ -89,7 +89,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project }, ref) {
               {(project.tech || project.techStack || []).map((t) => (
                 <span
                   key={t}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-1 text-xs font-medium text-white/90"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-1 text-xs font-medium text-white/90 transition duration-300 md:group-hover:text-primary "
                 >
                   {t}
                 </span>

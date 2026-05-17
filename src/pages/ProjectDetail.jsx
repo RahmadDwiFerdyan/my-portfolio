@@ -35,6 +35,44 @@ const slugifyHeading = (label = "") =>
     .trim()
     .replace(/\s+/g, "-");
 
+const getProjectLinkIcon = (link) => {
+  if (link?.icon) return link.icon;
+
+  const label = (link?.label || link?.name || link?.title || "").toLowerCase();
+  const url = (link?.url || "").toLowerCase();
+
+  if (label.includes("figma") || url.includes("figma.com")) {
+    return "/icons/figma.svg";
+  }
+
+  if (label.includes("github") || url.includes("github.com")) {
+    return "/icons/github-mark.svg";
+  }
+
+  if (
+    label.includes("doc") ||
+    label.includes("pdf") ||
+    url.includes(".pdf") ||
+    url.includes("drive.google.com")
+  ) {
+    return "/icons/pdf.svg";
+  }
+
+  return null;
+};
+
+const getProjectLinkLabel = (link) =>
+  link?.label || link?.name || link?.title || "Open Link";
+
+const normalizeProjectLinks = (project) => {
+  const rawLinks = project?.links || project?.link || [];
+  const links = Array.isArray(rawLinks) ? rawLinks : [rawLinks];
+
+  return links
+    .map((link) => (typeof link === "string" ? { url: link } : link))
+    .filter((link) => link?.url);
+};
+
 const PdfEmbed = memo(function PdfEmbed({ src, title, className, style }) {
   return (
     <figure
@@ -362,16 +400,16 @@ function ProjectDetailInner({ id, navigate }) {
     const candidates =
       language === "en"
         ? [
-            `../content/projects/${slug}.en.md`,
-            `../content/projects/${slug}.en-US.md`,
-            `../content/projects/${slug}.id.md`,
-            `../content/projects/${slug}.md`,
-          ]
+          `../content/projects/${slug}.en.md`,
+          `../content/projects/${slug}.en-US.md`,
+          `../content/projects/${slug}.id.md`,
+          `../content/projects/${slug}.md`,
+        ]
         : [
-            `../content/projects/${slug}.id.md`,
-            `../content/projects/${slug}.md`,
-            `../content/projects/${slug}.en.md`,
-          ];
+          `../content/projects/${slug}.id.md`,
+          `../content/projects/${slug}.md`,
+          `../content/projects/${slug}.en.md`,
+        ];
 
     const key = candidates.find((p) => Boolean(MARKDOWN_BY_PATH[p]));
     return (key && MARKDOWN_BY_PATH[key]) || "";
@@ -588,17 +626,7 @@ function ProjectDetailInner({ id, navigate }) {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
-  const figmaLink = useMemo(() => {
-    if (!project?.links?.length) return null;
-
-    return (
-      project.links.find((link) => {
-        const label = (link?.label || "").toLowerCase();
-        const url = (link?.url || "").toLowerCase();
-        return label.includes("figma") || url.includes("figma.com");
-      }) || null
-    );
-  }, [project]);
+  const projectLinks = useMemo(() => normalizeProjectLinks(project), [project]);
 
   const handleBackToHome = () => {
     const last = sessionStorage.getItem("lastHomeSection") || "#projects";
@@ -625,9 +653,8 @@ function ProjectDetailInner({ id, navigate }) {
 
   return (
     <section
-      className={`pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left transition-opacity duration-500 ${
-        isPageVisible ? "opacity-100" : "opacity-0"
-      }`}
+      className={`pt-16 pb-20 max-w-7xl mx-auto px-10 md:px-6 font-manrope text-white text-left transition-opacity duration-500 ${isPageVisible ? "opacity-100" : "opacity-0"
+        }`}
     >
       <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
         {/* LEFT STICKY MENU */}
@@ -698,7 +725,40 @@ function ProjectDetailInner({ id, navigate }) {
               <h1 className="mt-3 font-sora text-2xl font-bold text-white leading-tight">
                 {project.title}
               </h1>
+
+
             </div>
+              <div className="border-t border-white/10 p-4 ">
+                <p className="font-manrope text-white/70">Go to Link</p>
+                {projectLinks.length > 0 ? (
+                  <div className="mt-4 flex flex-nowrap gap-2 overflow-x-auto pb-1">
+                    {projectLinks.map((link, index) => {
+                      const icon = getProjectLinkIcon(link);
+                      const label = getProjectLinkLabel(link);
+
+                      return (
+                        <a
+                          key={`${link.url}-${index}`}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-w-0 flex-1 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/0 px-3 py-2 text-center text-sm font-semibold text-white/90 transition hover:border-white/20 hover:bg-white/5 hover:text-primary"
+                        >
+                          {icon ? (
+                            <img
+                              src={icon}
+                              alt=""
+                              aria-hidden="true"
+                              className="h-4 w-4 shrink-0 brightness-0 invert  hover:text-primary"
+                            />
+                          ) : null}
+                          <span className="truncate">{label}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                ) : null}
+              </div>
 
             <div ref={jumpMenuRef} className="border-t border-white/10 p-4">
               <p className="font-manrope text-white/70">Jump to</p>
@@ -732,22 +792,6 @@ function ProjectDetailInner({ id, navigate }) {
                 })}
               </nav>
 
-              {figmaLink ? (
-                <a
-                  href={figmaLink.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-rose-400/35 bg-rose-500/10 px-3 py-2 text-sm font-semibold text-rose-200 transition hover:-translate-y-0.5 hover:border-rose-300/60 hover:bg-rose-500/20 hover:text-white"
-                >
-                  <img
-                    src="/icons/figma.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="h-4 w-4 shrink-0"
-                  />
-                  Open Figma File
-                </a>
-              ) : null}
             </div>
           </div>
         </aside>
