@@ -15,13 +15,13 @@ export const CERTIFICATE_ITEMS = [
     logo: "icons/harisenin.jfif",
     logoAlt: "Harisenin UI UX Bootcamp",
   },
-  {
-    title: "UX Researcher Project-Based Internship",
-    meta: "Telkom Digital Amoeba | 2026",
-    href: "https://drive.google.com/file/d/1_uZBRbfaJ9fLnkS6B8-3H6V650vodhLM/view?usp=drive_link",
-    logo: "icons/amoeba.jfif",
-    logoAlt: "Telkom Digital Amoeba",
-  },
+  // {
+  //   title: "UX Researcher Project-Based Internship",
+  //   meta: "Telkom Digital Amoeba | 2026",
+  //   href: "https://drive.google.com/file/d/1_uZBRbfaJ9fLnkS6B8-3H6V650vodhLM/view?usp=drive_link",
+  //   logo: "icons/amoeba.jfif",
+  //   logoAlt: "Telkom Digital Amoeba",
+  // },
 ];
 
 export const TECH_STACK_ITEMS = ["Laravel", "PHP", "HTML", "JavaScript", "Java", "React.js", "Node.js", "PostgreSQL", "MySQL", "SQL Server", "TailwindCSS", "Bootstrap", "Figma", "FigJam", "Miro", "Git", "GitHub"];
